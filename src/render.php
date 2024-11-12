@@ -9,5 +9,5 @@
 ?>
 </p>
 <p<?php echo get_block_wrapper_attributes(); ?>>
-	<?php esc_html_e( 'Svg Bg', 'svg-bg' ); ?>
+	<?php esc_html_e( 'Svg Bg', 'hs-svg-bg' ); ?>
 </p>
