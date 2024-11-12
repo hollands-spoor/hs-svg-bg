@@ -1,0 +1,77 @@
+{
+	"name": "seigaiha",
+	"label": "Seigaiha",
+	"view": {
+		"radius": {
+			"type": "range",
+			"default": 16,
+			"min": 8,
+			"max": 100,
+			"step": 0.5,
+			"label": "Radius"
+		},
+		"r3": {
+			"type": "jsf",
+			"calc": "return Math.round( data.radius.value - ( data.stroke_width.value / 2 ) );"
+		},
+		"r2": {
+			"type": "jsf",
+			"calc": "return Math.round( ( data.radius.value * 2 / 3 ) - ( data.stroke_width.value / 2 ) );"
+		},
+		"r1": {
+			"type": "jsf",
+			"calc": "return Math.round( ( data.radius.value / 3 ) - ( data.stroke_width.value / 2 ) );"
+		},
+		"halfr": {
+			"type": "jsf",
+			"calc": "return Math.round( data.radius.value / 2 );"
+		},
+		"doubler": {
+			"type": "jsf",
+			"calc": "return Math.round( data.radius.value * 2 );"
+		},
+		"svg_width": {
+			"type": "jsf",
+			"calc": "return Math.round(data.radius.value * 2 );"
+		},
+		"svg_height": {
+			"type": "jsf",
+			"calc": "return Math.round( data.radius.value );"
+		},
+		"stroke_width": {
+			"type": "range",
+			"default": 2,
+			"min": 0.5,
+			"max": 40,
+			"step": 0.5,
+			"label": "Stroke Width"
+		},
+		"colorpanel": {
+			"type": "colorpanel",
+			"label": "Colors",
+			"default": {
+				"stroke": { "label": "Stroke", "default": "#00ff00" },
+				"color_1": { "label": "Color 1", "default": "#ff0000" },
+				"color_2": { "label": "Color 2", "default": "#00ff00" },
+				"color_3": { "label": "Color 3", "default": "#0000ff" }
+			}
+		},
+		"svg_stroke": {
+			"type": "jsf",
+			"calc": "return ( data.colorpanel.value.stroke.value );"
+		},
+		"c1": {
+			"type": "jsf",
+			"calc": "return ( data.colorpanel.value.color_1.value );"
+		},
+		"c2": {
+			"type": "jsf",
+			"calc": "return ( data.colorpanel.value.color_2.value );"
+		},
+		"c3": {
+			"type": "jsf",
+			"calc": "return ( data.colorpanel.value.color_3.value );"
+		}
+	},
+	"template": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"{{svg_width}}\" height=\"{{svg_height}}\" viewBox=\"0 0 {{svg_width}} {{svg_height}}\" stroke=\"{{svg_stroke}}\" stroke-width=\"{{stroke_width}}\" stroke-linecap=\"round\" stroke-linejoin=\"round\" class=\"svg_bg\"><defs><g id=\"total\"><circle class=\"circle\" fill=\"{{c1}}\" id=\"circle-01\" cx=\"0\" cy=\"{{halfr}}\" r=\"{{r3}}\" /><circle class=\"circle\" id=\"circle-02\" fill=\"{{c2}}\" cx=\"0\" cy=\"{{halfr}}\" r=\"{{r2}}\" /><circle class=\"circle\" id=\"circle-03\"  fill=\"{{c3}}\" cx=\"0\" cy=\"{{halfr}}\" r=\"{{r1}}\" /></g><pattern id=\"pattern1\" patternUnits=\"userSpaceOnUse\" width=\"{{doubler}}\" height=\"{{radius}}\"><use id=\"u1\" href=\"#total\" x=\"{{radius}}\" y=\"0\" /> <use id=\"u2\" href=\"#total\" x=\"0\" y=\"0\" /> <use id=\"u3\" href=\"#total\" x=\"{{doubler}}\" y=\"0\" /> <use id=\"u4\" href=\"#total\" x=\"{{radius}}\" y=\"{{halfr}}\" /> <use id=\"u5\" href=\"#total\" x=\"0\" y=\"{{radius}}\" /> <use id=\"u6\" href=\"#total\" x=\"{{doubler}}\" y=\"{{radius}}\" /> </pattern> </defs> <rect width=\"{{svg_width}}\" height=\"{{svg_height}}\" fill=\"url(#pattern1)\" stroke=\"none\" id=\"rect16\" /></svg>"
+}
