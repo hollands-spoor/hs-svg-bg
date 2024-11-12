@@ -1,4 +1,4 @@
 # hs-svg-bg
 Seamles SVG backgrounds for Wordpress
 
-v1
+v2
