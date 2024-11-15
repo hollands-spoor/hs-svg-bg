@@ -5,7 +5,7 @@
 
 import { useBlockProps, InnerBlocks } from '@wordpress/block-editor';
 
-import { renderTemplate } from './templating';
+import { get_svg_object_by_name, mergeInAttributes, renderTemplate } from './templating';
 
 /**
  * The save function defines the way in which the different attributes should
@@ -25,30 +25,26 @@ export default function Save( { attributes } ) {
 	} );
 
 	const svgTemplate = attributes.svgTemplate;
+	if( get_svg_object_by_name( svgTemplate ) === undefined ) {
+		return (
+			<div { ...blockProps }>
+				<InnerBlocks.Content />
+			</div>
+		);
+	}
 
-	let myview = svgObjects[ svgTemplate ].view;
-
-	const mergeInAttributes = ( view, atts ) => {
-		// iterate through atts if atts[key] exists and view[key] exists then view[key].value = atts[key]
-		const mergedView = { ...view };
-		Object.keys( atts ).forEach( ( key ) => {
-			if ( mergedView[ key ] ) {
-				mergedView[ key ].value = atts[ key ];
-			}
-		} );
-		return mergedView;
-	};
+	let myview = get_svg_object_by_name( svgTemplate ).view;
 
 	myview = mergeInAttributes( myview, attributes.myview );
 
-	const mytemplate = svgObjects[ svgTemplate ].template;
+	const mytemplate = get_svg_object_by_name( svgTemplate ).template;
 	const svgResult = renderTemplate( mytemplate, myview );
 	const svgDataUri = `data:image/svg+xml,${ encodeURIComponent(
 		svgResult
 	) }`;
 
 	blockProps = useBlockProps.save( {
-		style: { backgroundImage: `url("${ svgDataUri }")` },
+		style: { backgroundImage: `url("${ svgDataUri }")`, backgroundPosition: '-10% -10%' },
 		className: 'hs-svg-bg',
 	} );
 

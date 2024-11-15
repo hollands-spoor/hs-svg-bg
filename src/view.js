@@ -21,5 +21,5 @@
  */
 
 /* eslint-disable no-console */
-console.log( 'Hello World! (from hollands-spoor-svg-bg block)' );
+//console.log( 'Hello World! (from hollands-spoor-svg-bg block)' );
 /* eslint-enable no-console */

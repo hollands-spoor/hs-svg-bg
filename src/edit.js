@@ -39,7 +39,7 @@ import './editor.scss';
  * Edit an Save both use the rendering function
  */
 
-import { renderTemplate } from './templating';
+import { get_svg_object_by_name, mergeInAttributes, renderTemplate } from './templating';
 
 /**
  * The edit function describes the structure of your block in the context of the
@@ -50,32 +50,21 @@ import { renderTemplate } from './templating';
  * @return {Element} Element to render.
  */
 
+
 export default function Edit( { attributes, setAttributes } ) {
 	let blockProps = useBlockProps();
 
 	const svgTemplate = attributes.svgTemplate;
 
 	// if only editable properties are stored in attributes, then myview should be a merge of the view in svgObjects and the attributes
-
-	let myview = svgObjects[ svgTemplate ].view;
-
-	const mergeInAttributes = ( view, atts ) => {
-		// iterate through atts if atts[key] exists and view[key] exists then view[key].value = atts[key]
-		const mergedView = { ...view };
-		Object.keys( atts ).forEach( ( key ) => {
-			if ( mergedView[ key ] ) {
-				mergedView[ key ].value = atts[ key ];
-			}
-		} );
-		return mergedView;
-	};
-
+	let myview = get_svg_object_by_name( svgTemplate ).view;
+	// Check this view???
 	myview = mergeInAttributes( myview, attributes.myview );
 
-	const mytemplate = svgObjects[ svgTemplate ].template;
+	const mytemplate = get_svg_object_by_name( svgTemplate ).template;
 
 	const svgOptions = Object.keys( svgObjects ).map( ( key ) => ( {
-		value: key,
+		value: svgObjects[ key ].name,
 		label: svgObjects[ key ].label,
 	} ) );
 
@@ -90,7 +79,7 @@ export default function Edit( { attributes, setAttributes } ) {
 		);
 		return newView;
 	};
-	
+
 	const svgResult = renderTemplate( mytemplate, myview );
 
 	const svgDataUri = `data:image/svg+xml,${ encodeURIComponent(
@@ -98,7 +87,7 @@ export default function Edit( { attributes, setAttributes } ) {
 	) }`;
 
 	blockProps = useBlockProps( {
-		style: { backgroundImage: `url("${ svgDataUri }")` },
+		style: { backgroundImage: `url("${ svgDataUri }")`,  backgroundPosition: '-10% -10%'},
 	} );
 
 	return (
@@ -110,9 +99,23 @@ export default function Edit( { attributes, setAttributes } ) {
 						value={ svgTemplate } // Assuming you have a state variable for the selected option
 						options={ svgOptions }
 						onChange={ ( value ) => {
-							//setAttributes( { svgTemplate: value } ); doing this gives error because myview is not updated yet. Do it all at once down below
-							// Only store view properties in attributes that are changed in the editor
-							myview = svgObjects[ value ].view;
+							/**
+							 * setAttributes( { svgTemplate: value } ) <-- doing this gives an error because myview is not updated yet. 
+							 * Do both updates at once down below.
+							 * 
+							 * btw: Only store view properties in attributes that are changed in the editor
+							 *
+							 * FIX: don't use index immediately, adding / removing templates can change the index
+							 * Use the name of the json/svg file instead as value
+							 * And use that value to get the index in the svgObjects array
+							 * 
+							 * mview = get_svg_object_by_name( value ).view
+							 */
+							//obsoleted: myview = svgObjects[ value ].view;
+							
+							const myview = get_svg_object_by_name( value ).view;
+
+
 							const newMyview = getParamsFromView( myview ); // Create a new object
 							setAttributes( {
 								svgTemplate: value,
@@ -134,7 +137,7 @@ export default function Edit( { attributes, setAttributes } ) {
 										newMyview[ key ] = value;
 										setAttributes( { myview: newMyview } ); // Update with the new object
 										// change it in svgObjects as well for keeping the current changes when template is switched
-										svgObjects[ svgTemplate ].view[
+										get_svg_object_by_name( svgTemplate ).view[
 											key
 										].value = value;
 									} }
@@ -155,7 +158,7 @@ export default function Edit( { attributes, setAttributes } ) {
 										newMyview[ key ] = value;
 										setAttributes( { myview: newMyview } ); // Update with the new object
 										// change it in svgObjects as well for keeping the current changes when template is switched
-										svgObjects[ svgTemplate ].view[
+										get_svg_object_by_name( svgTemplate ).view[
 											key
 										].value = value;
 									} }
@@ -178,7 +181,7 @@ export default function Edit( { attributes, setAttributes } ) {
 												myview: newMyview,
 											} ); // Update with the new object
 											// change it in svgObjects as well for keeping the current changes when template is switched
-											svgObjects[ svgTemplate ].view[
+											get_svg_object_by_name( svgTemplate ).view[
 												key
 											].value = value;
 										} }
@@ -212,7 +215,7 @@ export default function Edit( { attributes, setAttributes } ) {
 										newMyview[key] = colors;
 										setAttributes( { myview: newMyview } ); 
 										//change it in svgObjects as well for keeping the current changes when template is switched
-										svgObjects[svgTemplate].view[key].value = value;
+										get_svg_object_by_name( svgTemplate ).view[key].value = value;
 									},
 									label: colors[ colorKey ].label,
 								} )

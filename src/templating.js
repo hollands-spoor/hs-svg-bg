@@ -1,3 +1,28 @@
+/**
+ * 
+ * @param {*} name 
+ * @returns 
+ */
+
+export const get_svg_object_by_name = ( name ) => {
+	return svgObjects.find( ( obj ) => obj.name === name );
+}
+
+export const mergeInAttributes = ( view, atts ) => {
+	// iterate through atts if atts[key] exists and view[key] exists then view[key].value = atts[key]
+	const mergedView = { ...view };
+	Object.keys( atts ).forEach( ( key ) => {
+		if ( mergedView[ key ] ) {
+			mergedView[ key ].value = atts[ key ];
+		}
+	} );
+	return mergedView;
+};
+
+/**
+ * Make sure the properties of view all have a value. 
+ */
+
 const sanitizeView = ( view ) => {
 	Object.keys( view ).forEach( ( key ) => {
 		if (

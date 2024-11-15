@@ -11,7 +11,7 @@
 	"attributes": {
 		"svgTemplate": {
 			"type": "string",
-			"default": "0"
+			"default": "asanoha"
 		},
 		"myview": {
 			"type": "object",
