@@ -57,5 +57,41 @@
 			"calc": "return ( data.colorpanel.value.color_2.value );"
 		}
 	},
+	"presets" : [
+		{
+			"label" : "Red",
+			"view" : {
+				"scale1": 0.6 ,
+				"ratio" : 4.2,
+				"colorpanel": {
+					"color_1": {
+						"value" : "#FFFFFF"
+					},
+					"color_2": {
+						"value" : "#FF9090"
+					}
+				}
+			}
+		},
+		{
+			"label" : "Blue",
+			"view" : {
+				"scale1": 0.8 ,
+				"ratio" : 4,
+				"colorpanel": {
+					"color_1": {
+						"value" : "#fffced"
+					},
+					"color_2": {
+						"value" : "#a4d0f3"
+					}
+				}
+			}
+		}
+
+	],
+
+
+
 	"template": "file"
 }

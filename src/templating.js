@@ -19,6 +19,19 @@ export const mergeInAttributes = ( view, atts ) => {
 	return mergedView;
 };
 
+export const mergeDeep = (target, source) => {
+	const output = { ...target };
+  
+	for (const key in source) {
+	  if (source[key] instanceof Object && key in target) {
+		output[key] = mergeDeep(target[key], source[key]);
+	  } else {
+		output[key] = source[key];
+	  }
+	}
+  
+	return output;
+  };
 /**
  * Make sure the properties of view all have a value. 
  */

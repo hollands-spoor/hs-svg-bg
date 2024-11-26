@@ -39,7 +39,7 @@ import './editor.scss';
  * Edit an Save both use the rendering function
  */
 
-import { get_svg_object_by_name, mergeInAttributes, renderTemplate } from './templating';
+import { get_svg_object_by_name, mergeInAttributes, renderTemplate, mergeDeep } from './templating';
 
 /**
  * The edit function describes the structure of your block in the context of the
@@ -55,13 +55,23 @@ export default function Edit( { attributes, setAttributes } ) {
 	let blockProps = useBlockProps();
 
 	const svgTemplate = attributes.svgTemplate;
+	// TODO: improve name of myObject
+	// TODO: svgTemplate should be called svgTemplateName
+	let myObject = get_svg_object_by_name( svgTemplate );
 
 	// if only editable properties are stored in attributes, then myview should be a merge of the view in svgObjects and the attributes
-	let myview = get_svg_object_by_name( svgTemplate ).view;
+
+	let myview = myObject.view;
 	// Check this view???
 	myview = mergeInAttributes( myview, attributes.myview );
 
-	const mytemplate = get_svg_object_by_name( svgTemplate ).template;
+	// Before going on, check if a preset is set, if so, merge the preset also into myview
+	// Nonono!! Now preset is loaded on every render. Do this only if selected preset changes
+	const has_presets = ( typeof myObject.presets !== 'undefined' );
+	let myPreset = typeof( attributes.myPreset ) !== 'undefined' ? attributes.myPreset : 0;
+	let myPresets = typeof( myObject.presets ) !== 'undefined' ? myObject.presets : [];
+
+	const mytemplate = myObject.template;
 
 	const svgOptions = Object.keys( svgObjects ).map( ( key ) => ( {
 		value: svgObjects[ key ].name,
@@ -90,6 +100,7 @@ export default function Edit( { attributes, setAttributes } ) {
 		style: { backgroundImage: `url("${ svgDataUri }")`,  backgroundPosition: '-10% -10%'},
 	} );
 
+
 	return (
 		<>
 			<InspectorControls group="styles">
@@ -111,11 +122,8 @@ export default function Edit( { attributes, setAttributes } ) {
 							 * 
 							 * mview = get_svg_object_by_name( value ).view
 							 */
-							//obsoleted: myview = svgObjects[ value ].view;
 							
 							const myview = get_svg_object_by_name( value ).view;
-
-
 							const newMyview = getParamsFromView( myview ); // Create a new object
 							setAttributes( {
 								svgTemplate: value,
@@ -123,6 +131,29 @@ export default function Edit( { attributes, setAttributes } ) {
 							} );
 						} }
 					/>
+					{ has_presets && (
+						<SelectControl 
+							label={ __( 'Presets', 'svg-background' ) }
+							value={ myPreset }
+							options={ [ { value: 0, label : 'None'}, ...myPresets.map( ( preset, index ) => ( {
+								value: index + 1,
+								label: preset.label,
+							} ) ) ] }
+							onChange = { ( value ) => {
+								// Merge the preset into myview and save the myview attribute
+								if ( value > 0 ) {
+									let newMyview2 = getParamsFromView( myObject.view ); 
+								// Merge myPresets[myPreset - 1].view into myview recursively
+									newMyview2 = mergeDeep(newMyview2, myPresets[value - 1].view);
+									setAttributes( { myPreset: parseInt( value, 10 ), myview: newMyview2 } );
+								} else {
+								// No preset selected, just save the preset index. Maybe switch to default values of view?
+									setAttributes( { myPreset: parseInt( value, 10 ) } );
+								
+								}
+							} } />
+
+					)}
 					{ Object.keys( myview ).map( ( key ) => {
 						const prop = myview[ key ];
 						if ( prop.type === 'range' ) {
@@ -215,6 +246,7 @@ export default function Edit( { attributes, setAttributes } ) {
 										newMyview[key] = colors;
 										setAttributes( { myview: newMyview } ); 
 										//change it in svgObjects as well for keeping the current changes when template is switched
+										// Fix: if you switch between 2 instances of the same svg_template, the colors are mixed up in the newly selected one, probably because the colors are stored in the svgObjects array
 										get_svg_object_by_name( svgTemplate ).view[key].value = value;
 									},
 									label: colors[ colorKey ].label,

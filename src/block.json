@@ -6,7 +6,7 @@
 	"title": "SVG Background",
 	"category": "widgets",
 	"icon": "smiley",
-	"description": "Block with an SVG background.",
+	"description": "Provides a block with an adjustable SVG background.",
 	"example": {},
 	"attributes": {
 		"svgTemplate": {
@@ -20,6 +20,10 @@
 		"mytemplate": {
 			"type": "string",
 			"default": ""
+		},
+		"myPreset" : {
+			"type": "integer",
+			"default": 0
 		}
 	},
 

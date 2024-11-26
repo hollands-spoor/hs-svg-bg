@@ -1,0 +1,19 @@
+
+
+<svg xmlns="http://www.w3.org/2000/svg" 
+    width="{{dx}}" 
+    height="{{dy}}" 
+    viewBox="0 0 {{dx}} {{dy}}">
+    <defs>
+        <g id="ruit" style="transform:scale(0.5)">
+            <path d="M {{halfx}},0 {{dx}},{{halfy}} {{halfx}},{{dy}}  0,{{halfy}} Z" stroke="{{color_1}}" fill="{{color_1}}"/>
+        </g>
+
+    </defs>
+    <g style="transform: scale(1)">
+        <rect width="{{dx}}" height="{{dy}}" x="0" y="0" fill="{{background}}"/>
+       <use href="#ruit" x="0" y="0" />
+       <use href="#ruit" x="{{halfx}}" y="{{halfy}}" />
+       
+    </g>
+</svg>

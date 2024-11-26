@@ -69,12 +69,22 @@ function Edit({
 }) {
   let blockProps = (0,_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_2__.useBlockProps)();
   const svgTemplate = attributes.svgTemplate;
+  // TODO: improve name of myObject
+  // TODO: svgTemplate should be called svgTemplateName
+  let myObject = (0,_templating__WEBPACK_IMPORTED_MODULE_5__.get_svg_object_by_name)(svgTemplate);
 
   // if only editable properties are stored in attributes, then myview should be a merge of the view in svgObjects and the attributes
-  let myview = (0,_templating__WEBPACK_IMPORTED_MODULE_5__.get_svg_object_by_name)(svgTemplate).view;
+
+  let myview = myObject.view;
   // Check this view???
   myview = (0,_templating__WEBPACK_IMPORTED_MODULE_5__.mergeInAttributes)(myview, attributes.myview);
-  const mytemplate = (0,_templating__WEBPACK_IMPORTED_MODULE_5__.get_svg_object_by_name)(svgTemplate).template;
+
+  // Before going on, check if a preset is set, if so, merge the preset also into myview
+  // Nonono!! Now preset is loaded on every render. Do this only if selected preset changes
+  const has_presets = typeof myObject.presets !== 'undefined';
+  let myPreset = typeof attributes.myPreset !== 'undefined' ? attributes.myPreset : 0;
+  let myPresets = typeof myObject.presets !== 'undefined' ? myObject.presets : [];
+  const mytemplate = myObject.template;
   const svgOptions = Object.keys(svgObjects).map(key => ({
     value: svgObjects[key].name,
     label: svgObjects[key].label
@@ -113,7 +123,6 @@ function Edit({
        * 
        * mview = get_svg_object_by_name( value ).view
        */
-      //obsoleted: myview = svgObjects[ value ].view;
 
       const myview = (0,_templating__WEBPACK_IMPORTED_MODULE_5__.get_svg_object_by_name)(value).view;
       const newMyview = getParamsFromView(myview); // Create a new object
@@ -121,6 +130,33 @@ function Edit({
         svgTemplate: value,
         myview: newMyview
       });
+    }
+  }), has_presets && (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_3__.SelectControl, {
+    label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Presets', 'svg-background'),
+    value: myPreset,
+    options: [{
+      value: 0,
+      label: 'None'
+    }, ...myPresets.map((preset, index) => ({
+      value: index + 1,
+      label: preset.label
+    }))],
+    onChange: value => {
+      // Merge the preset into myview and save the myview attribute
+      if (value > 0) {
+        let newMyview2 = getParamsFromView(myObject.view);
+        // Merge myPresets[myPreset - 1].view into myview recursively
+        newMyview2 = (0,_templating__WEBPACK_IMPORTED_MODULE_5__.mergeDeep)(newMyview2, myPresets[value - 1].view);
+        setAttributes({
+          myPreset: parseInt(value, 10),
+          myview: newMyview2
+        });
+      } else {
+        // No preset selected, just save the preset index. Maybe switch to default values of view?
+        setAttributes({
+          myPreset: parseInt(value, 10)
+        });
+      }
     }
   }), Object.keys(myview).map(key => {
     const prop = myview[key];
@@ -198,6 +234,7 @@ function Edit({
             myview: newMyview
           });
           //change it in svgObjects as well for keeping the current changes when template is switched
+          // Fix: if you switch between 2 instances of the same svg_template, the colors are mixed up in the newly selected one, probably because the colors are stored in the svgObjects array
           (0,_templating__WEBPACK_IMPORTED_MODULE_5__.get_svg_object_by_name)(svgTemplate).view[key].value = value;
         },
         label: colors[colorKey].label
@@ -363,6 +400,7 @@ function Save({
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   get_svg_object_by_name: function() { return /* binding */ get_svg_object_by_name; },
+/* harmony export */   mergeDeep: function() { return /* binding */ mergeDeep; },
 /* harmony export */   mergeInAttributes: function() { return /* binding */ mergeInAttributes; },
 /* harmony export */   renderTemplate: function() { return /* binding */ renderTemplate; }
 /* harmony export */ });
@@ -387,7 +425,19 @@ const mergeInAttributes = (view, atts) => {
   });
   return mergedView;
 };
-
+const mergeDeep = (target, source) => {
+  const output = {
+    ...target
+  };
+  for (const key in source) {
+    if (source[key] instanceof Object && key in target) {
+      output[key] = mergeDeep(target[key], source[key]);
+    } else {
+      output[key] = source[key];
+    }
+  }
+  return output;
+};
 /**
  * Make sure the properties of view all have a value. 
  */
@@ -505,7 +555,7 @@ module.exports = window["wp"]["i18n"];
   \************************/
 /***/ (function(module) {
 
-module.exports = /*#__PURE__*/JSON.parse('{"$schema":"https://schemas.wp.org/trunk/block.json","apiVersion":3,"name":"hollands-spoor/svg-bg","version":"0.1.0","title":"SVG Background","category":"widgets","icon":"smiley","description":"Block with an SVG background.","example":{},"attributes":{"svgTemplate":{"type":"string","default":"asanoha"},"myview":{"type":"object","default":{}},"mytemplate":{"type":"string","default":""}},"supports":{"html":false,"layout":true,"align":true,"background":{"backgroundImage":true,"backgroundSize":true},"spacing":{"padding":true,"margin":true}},"textdomain":"hs-svg-bg","editorScript":"file:./index.js","editorStyle":"file:./index.css","style":"file:./style-index.css","viewScript":"file:./view.js"}');
+module.exports = /*#__PURE__*/JSON.parse('{"$schema":"https://schemas.wp.org/trunk/block.json","apiVersion":3,"name":"hollands-spoor/svg-bg","version":"0.1.0","title":"SVG Background","category":"widgets","icon":"smiley","description":"Provides a block with an adjustable SVG background.","example":{},"attributes":{"svgTemplate":{"type":"string","default":"asanoha"},"myview":{"type":"object","default":{}},"mytemplate":{"type":"string","default":""},"myPreset":{"type":"integer","default":0}},"supports":{"html":false,"layout":true,"align":true,"background":{"backgroundImage":true,"backgroundSize":true},"spacing":{"padding":true,"margin":true}},"textdomain":"hs-svg-bg","editorScript":"file:./index.js","editorStyle":"file:./index.css","style":"file:./style-index.css","viewScript":"file:./view.js"}');
 
 /***/ })
 

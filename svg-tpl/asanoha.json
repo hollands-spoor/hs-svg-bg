@@ -73,5 +73,52 @@
 			"calc": "return ( data.dx.value * ( ( Math.sqrt(3) / 2 ) - ( 1 / ( 2* Math.sqrt(3) ) ) ) );"
 		}
 	},
+	"presets" : [
+		{
+			"label" : "Dark Night",
+			"view" : {
+				"dx": 132 ,
+				"stroke_width" : 2.5,
+				"colorpanel": {
+					"stroke": {
+						"value" : "#F8F1B3"
+					},
+					"background": {
+						"value" : "#404082"
+					}
+				}
+			}
+		},
+		{			
+			"label" : "Black River",
+			"view" : {
+				"dx": 100,
+				"stroke_width" : 1,
+				"colorpanel": {
+					"stroke": {
+						"value" : "#ffffff"
+					},
+					"background": {
+						"value" : "#cc0000"
+					}
+				}
+			}
+		},
+		{			
+			"label" : "Star Blazer",
+			"view" : {
+				"dx": 64 ,
+				"stroke_width" : 1,
+				"colorpanel": {
+					"stroke": {
+						"value" : "#F6CFF4"
+					},	
+					"background": {
+						"value" : "#FFFFFF"
+					}
+				}
+			}
+		}
+	],
 	"template": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"{{svg_width}}\" height=\"{{svg_height}}\" viewBox=\"0 0 {{svg_width}} {{svg_height}}\" fill=\"none\" stroke=\"{{svg_stroke}}\" stroke-width=\"{{stroke_width}}\" stroke-linecap=\"round\" stroke-linejoin=\"round\" class=\"svg_bg\"><defs><path style=\"fill:none;\" id=\"dark1-cell\" d=\"M 0,0 {{dx}},0 M 0,{{hw3dy}} {{dx}},{{hw3dy}} {{halfdx}},0 Z M 0,{{hw3dy}} {{halfdx}},{{hp2dy}} {{dx}},{{hw3dy}} M {{halfdx}},{{hp2dy}} {{halfdx}},0 M 0,{{hw3dy}} 0,{{hp1dy}} {{halfdx}},0 M {{dx}},{{hw3dy}} {{dx}},{{hp1dy}} {{halfdx}},0 \" /><pattern id=\"dark1-pattern\" patternUnits=\"userSpaceOnUse\" width=\"{{dx}}\" height=\"{{w3dy}}\"><use href=\"#dark1-cell\" x=\"0\" y=\"0\" /><use href=\"#dark1-cell\" x=\"{{halfdx}}\" y=\"{{hw3dy}}\" /><use href=\"#dark1-cell\" x=\"-{{halfdx}}\" y=\"{{hw3dy}}\" /></pattern></defs><rect id=\"bg\" width=\"{{svg_width}}\" height=\"{{svg_height}}\" fill=\"{{svg_fill}}\" /><rect id=\"main\" width=\"{{svg_width}}\" height=\"{{svg_height}}\" fill=\"url(#dark1-pattern)\" /></svg>"
 }

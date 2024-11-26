@@ -1,0 +1,67 @@
+{
+	"name": "diamond",
+	"label": "Diamond",
+	"view": {
+
+        "scale_1": {
+			"type": "range",
+			"default": 0.25,
+			"min": 0.1,
+			"max": 0.5,
+			"step": 0.01,
+			"label": "Scale"
+		},
+
+
+		"dx": {
+			"type": "range",
+			"default": 20,
+			"min": 8,
+			"max": 100,
+			"step": 0.5,
+			"label": "DX"
+		},
+		"halfx": {
+			"type": "jsf",
+			"calc": "return Math.floor( data.dx.value / 2 );"
+		},
+		"dy": {
+			"type": "range",
+			"default": 20,
+			"min": 8,
+			"max": 100,
+			"step": 0.5,
+			"label": "DY"
+		},
+		"halfy": {
+			"type": "jsf",
+			"calc": "return Math.floor( data.dy.value / 2 );"
+		},
+		"stroke_width": {
+			"type": "range",
+			"default": 2,
+			"min": 0.5,
+			"max": 40,
+			"step": 0.5,
+			"label": "Stroke Width"
+		},
+		"colorpanel": {
+			"type": "colorpanel",
+			"label": "Colors",
+			"default": {
+				"background": { "label": "Background", "default": "#ff0000" },
+				"color_1": { "label": "Color 1", "default": "#00ff00" }
+			}
+		},
+
+		"color_1": {
+			"type": "jsf",
+			"calc": "return ( data.colorpanel.value.color_1.value );"
+		},
+		"bg_fill": {
+			"type": "jsf",
+			"calc": "return ( data.colorpanel.value.background.value );"
+		}
+	},
+	"template": "file"
+}

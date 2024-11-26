@@ -62,18 +62,18 @@ add_action( 'enqueue_block_editor_assets', 'wp_svg_bg_enqueue_block_editor_asset
 
 
 /**
- * Switched off
+ * temporarily Switched on
  * 
  * There can be good reasons to disallow SVG uploads in WordPress, also for users that want this SVG backgrounds.
  * 
  * I chose to inline the svg instead of uploading it to the media library, i left this here for debug / reference.
  * 
  * To temporarily allow svg upload in WP:
- *
- * function add_svg_to_uploads($file_types){
- * 	$file_types['svg'] = 'image/svg+xml';
- * 	return $file_types;
- * }
- *
- * add_filter( 'upload_mimes', 'add_svg_to_uploads' );
  */
+ function add_svg_to_uploads($file_types){
+  	$file_types['svg'] = 'image/svg+xml';
+  	return $file_types;
+  }
+ 
+  add_filter( 'upload_mimes', 'add_svg_to_uploads' );
+ 
