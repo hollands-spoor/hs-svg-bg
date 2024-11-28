@@ -121,6 +121,8 @@ export default function Edit( { attributes, setAttributes } ) {
 							 * And use that value to get the index in the svgObjects array
 							 * 
 							 * mview = get_svg_object_by_name( value ).view
+							 * 
+							 * FIX: if you switch between 2 instances of the same svg_template, the colors are mixed up in the newly selected one, probably because the colors are stored in the svgObjects array. Same goes for the preset nr. Better set preset to 0 when switching templates
 							 */
 							
 							const myview = get_svg_object_by_name( value ).view;

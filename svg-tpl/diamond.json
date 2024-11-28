@@ -6,7 +6,7 @@
         "scale_1": {
 			"type": "range",
 			"default": 0.25,
-			"min": 0.1,
+			"min": 0.01,
 			"max": 0.5,
 			"step": 0.01,
 			"label": "Scale"
@@ -17,7 +17,7 @@
 			"type": "range",
 			"default": 20,
 			"min": 8,
-			"max": 100,
+			"max": 255,
 			"step": 0.5,
 			"label": "DX"
 		},
@@ -29,7 +29,7 @@
 			"type": "range",
 			"default": 20,
 			"min": 8,
-			"max": 100,
+			"max": 255,
 			"step": 0.5,
 			"label": "DY"
 		},
@@ -63,5 +63,40 @@
 			"calc": "return ( data.colorpanel.value.background.value );"
 		}
 	},
+	"presets" : [
+		{
+			"label" : "Cardinal",
+			"view" : {
+				"scale_1": 0.1 ,
+				"dx" : 60,
+				"dy" : 100,
+				"colorpanel": {
+					"background": {
+						"value" : "#450874"
+					},
+					"color_1": {
+						"value" : "#ece49f"
+					}
+				}
+			}
+		},
+		{
+			"label" : "Leaves",
+			"view" : {
+				"scale_1": 0.04 ,
+				"dx" : 150,
+				"dy" : 250,
+				"colorpanel": {
+					"background": {
+						"value" : "#FBFAF3"
+					},
+					"color_1": {
+						"value" : "#19AF53"
+					}
+				}
+			}
+		}
+
+	],
 	"template": "file"
 }

@@ -30,9 +30,13 @@ add_action( 'init', 'hollands_spoor_svg_bg_block_init' );
  */
 function svg_bg_get_svgs(){
 	$svgs = array();
-	$files = scandir( plugin_dir_path( __FILE__ ) . 'svg-tpl' );
+	$dir = plugin_dir_path( __FILE__ ) . 'svg-tpl';
+  
+	$files = scandir( $dir );
 	foreach( $files as $file ){
 		if( $file == '.' || $file == '..' ) continue;
+		if ( is_dir( $dir . '/' . $file ) ) continue;
+
 		$file_info = pathinfo($file);
     	if ($file_info['extension'] !== 'json') continue;
 	
