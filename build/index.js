@@ -211,25 +211,24 @@ function Edit({
           (0,_templating__WEBPACK_IMPORTED_MODULE_5__.get_svg_object_by_name)(svgTemplate).view.parameters[key].value = value;
         }
       });
-    } else if (prop.type === 'colorpicker') {
-      return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_3__.BaseControl, {
-        key: key,
+    } else if (prop.type === 'select') {
+      return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_3__.SelectControl, {
+        key: prop.key,
         label: prop.label,
-        id: `colorpicker-${key}`
-      }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_3__.ColorPicker, {
-        color: prop.value,
+        value: prop.value,
+        options: Object.entries(prop.options).map(([key, value]) => ({
+          value: key,
+          label: value
+        })),
         onChange: value => {
+          console.log('change figure to: ', value);
           const newMyview = getParamsFromView(myview); // Create a new object
           newMyview[key] = value;
           setAttributes({
             myview: newMyview
-          }); // Update with the new object
-          // change it in svgObjects as well for keeping the current changes when template is switched
-          (0,_templating__WEBPACK_IMPORTED_MODULE_5__.get_svg_object_by_name)(svgTemplate).view.parameters[key].value = value;
-        },
-        enableAlpha: true,
-        defaultValue: '#000'
-      }));
+          }); // Update with the new 
+        }
+      });
     } else if (prop.type === 'colorpanel') {
       // get colors from value, if value not set use default
       const colors = prop.value || prop.default;

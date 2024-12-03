@@ -11,6 +11,17 @@
 				"step": 0.01,
 				"label": "Scale"
 			},
+			"figure" : {
+				"type" : "select",
+				"label" : "Figure",
+				"default" : "ruit",
+				"key" : "figure-select",
+				"options" : {
+					"ruit" : "Diamond",
+					"polka" : "Polka"
+				}
+
+			},
 			"dx": {
 				"type": "range",
 				"default": 20,
@@ -38,7 +49,7 @@
 			"colorpanel": {
 				"type": "colorpanel",
 				"label": "Colors",
-				"default": {
+				"value": {
 					"background": { "label": "Background", "default": "#ff0000" },
 					"color_1": { "label": "Color 1", "default": "#00ff00" }
 				}
@@ -58,6 +69,7 @@
 				"scale_1": 0.1 ,
 				"dx" : 60,
 				"dy" : 100,
+				"figure" : "ruit",
 				"colorpanel": {
 					"background": "#450874",
 					"color_1": "#ece49f"
@@ -70,6 +82,7 @@
 				"scale_1": 0.04 ,
 				"dx" : 150,
 				"dy" : 250,
+				"figure" : "polka",
 				"colorpanel": {
 					"background": "#FBFAF3",
 					"color_1": "#19AF53"

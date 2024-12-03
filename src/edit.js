@@ -216,31 +216,28 @@ export default function Edit( { attributes, setAttributes } ) {
 									} }
 								/>
 							);
-						} else if ( prop.type === 'colorpicker' ) {
+						} else if ( prop.type === 'select' ) {
 							return (
-								<BaseControl
-									key={ key }
+								<SelectControl 
+									key = { prop.key }
 									label={ prop.label }
-									id={ `colorpicker-${ key }` }
-								>
-									<ColorPicker
-										color={ prop.value }
-										onChange={ ( value ) => {
-											const newMyview =
-												getParamsFromView( myview ); // Create a new object
-											newMyview[ key ] = value;
-											setAttributes( {
-												myview: newMyview,
-											} ); // Update with the new object
-											// change it in svgObjects as well for keeping the current changes when template is switched
-											get_svg_object_by_name( svgTemplate ).view.parameters[
-												key
-											].value = value;
-										} }
-										enableAlpha
-										defaultValue={ '#000' }
-									/>
-								</BaseControl>
+									value={ prop.value }
+									
+									options={ 
+										Object.entries(prop.options).map(([key, value]) => ({
+											value: key,
+											label: value,
+										  }))
+									 }
+									onChange = { ( value ) => {
+										console.log( 'change figure to: ', value );
+										const newMyview = getParamsFromView( myview ); // Create a new object
+										newMyview[ key ] = value;
+										setAttributes( { myview: newMyview } ); // Update with the new 
+
+
+									} } 
+								/>
 							);
 						} else if ( prop.type === 'colorpanel' ) {
 							// get colors from value, if value not set use default
