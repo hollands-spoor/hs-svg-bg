@@ -71,12 +71,8 @@
 				"dx" : 60,
 				"dy" : 100,
 				"colorpanel": {
-					"background": {
-						"value" : "#450874"
-					},
-					"color_1": {
-						"value" : "#ece49f"
-					}
+					"background": "#450874",
+					"color_1": "#ece49f"
 				}
 			}
 		},
@@ -87,12 +83,8 @@
 				"dx" : 150,
 				"dy" : 250,
 				"colorpanel": {
-					"background": {
-						"value" : "#FBFAF3"
-					},
-					"color_1": {
-						"value" : "#19AF53"
-					}
+					"background": "#FBFAF3",
+					"color_1": "#19AF53"
 				}
 			}
 		}

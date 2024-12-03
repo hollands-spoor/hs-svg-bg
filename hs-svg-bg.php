@@ -40,10 +40,10 @@ function svg_bg_get_svgs(){
 		$file_info = pathinfo($file);
     	if ($file_info['extension'] !== 'json') continue;
 	
-		$svg_json = json_decode( file_get_contents( plugin_dir_path( __FILE__ ) . 'svg-tpl/' . $file ) );
+		$svg_json = json_decode( file_get_contents( $dir . '/' . $file ) );
 		
 		if( $svg_json->template === "file") {
-			$svg_json->template = file_get_contents( plugin_dir_path( __FILE__ ) . 'svg-tpl/' . $svg_json->name . '.svg' );
+			$svg_json->template = file_get_contents( $dir . '/' . $svg_json->name . '.svg' );
 		} 
 		$svgs[] = $svg_json;
 	}

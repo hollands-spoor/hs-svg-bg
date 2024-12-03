@@ -2,59 +2,55 @@
 	"name": "beach",
 	"label": "Beach",
 	"view": {
-		"scale1": {
-			"type": "range",
-			"default": 1,
-			"min": 0.1,
-			"max": 10,
-			"step": 0.1,
-			"label": "Size",
-			"value": 1
-		},
-		"dx" : {
-			"type" : "jsf",
-			"calc" : "return 100 * data.scale1.value;"
-		},
-		"ratio": {
-			"type": "range",
-			"default": 2,
-			"min": 0.1,
-			"max": 24,
-			"step": 0.1,
-			"label": "Ratio",
-			"value": 2
-		},
-		"dik" : {
-			"type" : "jsf",
-			"calc" : "return 50 - 2 * data.ratio.value;"
-		},
-		"p1" : {
-			"type" : "jsf",
-			"calc" : "return 2 * data.ratio.value;"
-		},
-		"p2" : {
-			"type" : "jsf",
-			"calc" : "return 50 + data.ratio.value;"
-		},
-		"p3" : {
-			"type" : "jsf",
-			"calc" : "return 50 + ( 2 * data.ratio.value );"
-		},
-		"colorpanel": {
-			"type": "colorpanel",
-			"label": "Colors",
-			"default": {
-				"color_1": { "label": "Color 1", "default": "#00f" },
-				"color_2": { "label": "Color 2", "default": "#c00" }
+		"parameters" : {
+			"scale1": {
+				"type": "range",
+				"default": 1,
+				"min": 0.1,
+				"max": 10,
+				"step": 0.1,
+				"label": "Size",
+				"value": 1
+			},
+			"ratio": {
+				"type": "range",
+				"default": 2,
+				"min": 0.1,
+				"max": 24,
+				"step": 0.1,
+				"label": "Ratio Thin / Thick",
+				"value": 2
+			},
+			"ratio2": {
+				"type": "range",
+				"default": 1,
+				"min": 1,
+				"max": 5,
+				"step": 0.1,
+				"label": "Ratio Thick / Thick",
+				"value": 1
+			},
+			"colorpanel": {
+				"type": "colorpanel",
+				"label": "Colors",
+				"value": {
+					"color_1": { "label": "Color 1", "default": "#00f", "value" : "#00f" },
+					"color_2": { "label": "Color 2", "default": "#c00", "value" : "#c00" }
+				}
 			}
+	
 		},
-		"c1": {
-			"type": "jsf",
-			"calc": "return ( data.colorpanel.value.color_1.value );"
-		},
-		"c2": {
-			"type": "jsf",
-			"calc": "return ( data.colorpanel.value.color_2.value );"
+		"functions" : {
+			"dx" :  "return 100 * data.scale1.value;",
+			"dik" : "return 50 - 2 * data.ratio.value;", 
+			"dik1" : "return 50 / data.ratio2.value;",
+			"dik2" : "return 100 - ( 50 / data.ratio2.value );",
+			"p1"  : "return 2 * data.ratio.value;",
+			"p2"  : "return ( 50 / data.ratio2.value ) + data.ratio.value;",
+			"p3"  : "return ( 50 / data.ratio2.value ) + ( 2 * data.ratio.value );",
+			"p4"  : "return ( 50 / data.ratio2.value );",
+			"c1"  : "return ( data.colorpanel.value.color_1.value );",
+			"c2"  : "return ( data.colorpanel.value.color_2.value );"
 		}
 	},
 	"presets" : [
@@ -63,13 +59,10 @@
 			"view" : {
 				"scale1": 0.6 ,
 				"ratio" : 4.2,
+				"ratio2" : 1,
 				"colorpanel": {
-					"color_1": {
-						"value" : "#FFFFFF"
-					},
-					"color_2": {
-						"value" : "#FF9090"
-					}
+					"color_1": "#FFFFFF",
+					"color_2": "#FF9090"
 				}
 			}
 		},
@@ -78,20 +71,14 @@
 			"view" : {
 				"scale1": 0.8 ,
 				"ratio" : 4,
+				"ratio2" : 1.5,
 				"colorpanel": {
-					"color_1": {
-						"value" : "#fffced"
-					},
-					"color_2": {
-						"value" : "#a4d0f3"
-					}
+					"color_1": "#a4d0f3",
+					"color_2":  "#fffced"
 				}
 			}
 		}
 
 	],
-
-
-
 	"template": "file"
 }

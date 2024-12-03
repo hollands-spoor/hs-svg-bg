@@ -81,19 +81,11 @@
 				"radius": 36 ,
 				"stroke_width" : 1,
 				"colorpanel": {
-					"stroke": {
-						"value" : "#ee96ea"
-					},	
-					"color_1": {
-						"value" : "#F6CFF4"
-					},
-					"color_2": {
-						"value" : "#F6CFF4"
-					},
-					"color_3": {
-						"value" : "#F6CFF4"
-					}	
-				}
+					"stroke":  "#ee96ea",	
+					"color_1": "#F6CFF4",
+					"color_2": "#F6CFF4",
+					"color_3": "#F6CFF4"
+				}	
 			}
 		},
 		{
@@ -102,18 +94,10 @@
 				"radius": 36 ,
 				"stroke_width" : 2.5,
 				"colorpanel": {
-					"stroke": {
-						"value" : "#ee96ea"
-					},	
-					"color_1": {
-						"value" : "#F6CFF4"
-					},
-					"color_2": {
-						"value" : "#F7DEF5"
-					},
-					"color_3": {
-						"value" : "#fbeffb"
-					}	
+					"stroke"  : "#ee96ea",	
+					"color_1" : "#F6CFF4",
+					"color_2" : "#F7DEF5",
+					"color_3" : "#fbeffb"
 				}
 			}
 		},
@@ -123,19 +107,11 @@
 				"radius": 60,
 				"stroke_width" : 5,
 				"colorpanel": {
-					"stroke": {
-						"value" : "#24c307"
-					},	
-					"color_1": {
-						"value" : "#faf7da"
-					},
-					"color_2": {
-						"value" : "#f9f09c"
-					},
-					"color_3": {
-						"value" : "#FFEE58"
-					}	
-				}
+					"stroke"  : "#24c307",	
+					"color_1" : "#faf7da",
+					"color_2" : "#f9f09c",
+					"color_3" : "#FFEE58"
+				}	
 			}
 		},
 		{
@@ -144,18 +120,10 @@
 				"radius": 42,
 				"stroke_width" : 6,
 				"colorpanel": {
-					"stroke": {
-						"value" : "#1f329f"
-					},	
-					"color_1": {
-						"value" : "#B8E2FF"
-					},
-					"color_2": {
-						"value" : "#B8E2FF"
-					},
-					"color_3": {
-						"value" : "#B8E2FF"
-					}	
+					"stroke" : "#1f329f",	
+					"color_1": "#B8E2FF",
+					"color_2": "#B8E2FF",
+					"color_3": "#B8E2FF"
 				}
 			}
 		},
@@ -165,25 +133,13 @@
 				"radius": 42,
 				"stroke_width" : 1,
 				"colorpanel": {
-					"stroke": {
-						"value" : "#959dc0"
-					},	
-					"color_1": {
-						"value" : "#1f329f"
-					},
-					"color_2": {
-						"value" : "#1f329f"
-					},
-					"color_3": {
-						"value" : "#1f329f"
-					}	
+					"stroke" : "#959dc0",	
+					"color_1": "#1f329f",
+					"color_2": "#1f329f",
+					"color_3": "#1f329f"
 				}
 			}
 		}
-
-
-
-
 
 	],
 

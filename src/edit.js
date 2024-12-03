@@ -63,7 +63,7 @@ export default function Edit( { attributes, setAttributes } ) {
 
 	let myview = myObject.view;
 	// Check this view???
-	myview = mergeInAttributes( myview, attributes.myview );
+	myview.parameters = mergeInAttributes( myview.parameters, attributes.myview );
 
 	// Before going on, check if a preset is set, if so, merge the preset also into myview
 	// Nonono!! Now preset is loaded on every render. Do this only if selected preset changes
@@ -78,17 +78,28 @@ export default function Edit( { attributes, setAttributes } ) {
 		label: svgObjects[ key ].label,
 	} ) );
 
-	const getParamsFromView = ( view ) => {
+	const getParamsFromView = (view) => {
+		const processValue = (value) => {
+		  if (value !== null && typeof value === 'object') {
+			return Object.fromEntries(
+			  Object.entries(value).map(([key, val]) => [
+				key,
+				processValue(val.value !== undefined ? val.value : val.default),
+			  ])
+			);
+		  }
+		  return value;
+		};
+	  
 		const newView = Object.fromEntries(
-			Object.entries( view )
-				.filter( ( [ value ] ) => value.type !== 'jsf' )
-				.map( ( [ key, value ] ) => [
-					key,
-					value.value !== undefined ? value.value : value.default,
-				] )
+		  Object.entries(view.parameters).map(([key, value]) => [
+			key,
+			processValue(value.value !== undefined ? value.value : value.default),
+		  ])
 		);
+	  
 		return newView;
-	};
+	  };
 
 	const svgResult = renderTemplate( mytemplate, myview );
 
@@ -126,6 +137,13 @@ export default function Edit( { attributes, setAttributes } ) {
 							 */
 							
 							const myview = get_svg_object_by_name( value ).view;
+							/**
+							 * We could just use view.parameters. But getParamsFromView creates a new object.
+							 * I understood from somewhere that creating a new object is needed for react to 
+							 * recognize the change and rerender. Not sure if this is true. 
+							 * TODO check this
+							 * For now I adjusted getParamasFromView 
+							 */
 							const newMyview = getParamsFromView( myview ); // Create a new object
 							setAttributes( {
 								svgTemplate: value,
@@ -144,10 +162,13 @@ export default function Edit( { attributes, setAttributes } ) {
 							onChange = { ( value ) => {
 								// Merge the preset into myview and save the myview attribute
 								if ( value > 0 ) {
+									//console.log( 'previeous view: ', myObject.view );
 									let newMyview2 = getParamsFromView( myObject.view ); 
+									//console.log( 'parameters view: ', newMyview2 );
 								// Merge myPresets[myPreset - 1].view into myview recursively
 									newMyview2 = mergeDeep(newMyview2, myPresets[value - 1].view);
 									setAttributes( { myPreset: parseInt( value, 10 ), myview: newMyview2 } );
+									//console.log( 'new view: ', newMyview2 );
 								} else {
 								// No preset selected, just save the preset index. Maybe switch to default values of view?
 									setAttributes( { myPreset: parseInt( value, 10 ) } );
@@ -156,8 +177,8 @@ export default function Edit( { attributes, setAttributes } ) {
 							} } />
 
 					)}
-					{ Object.keys( myview ).map( ( key ) => {
-						const prop = myview[ key ];
+					{ Object.keys( myview.parameters ).map( ( key ) => {
+						const prop = myview.parameters[ key ];
 						if ( prop.type === 'range' ) {
 							return (
 								<RangeControl
@@ -165,12 +186,11 @@ export default function Edit( { attributes, setAttributes } ) {
 									label={ prop.label }
 									value={ prop.value || prop.default }
 									onChange={ ( value ) => {
-										const newMyview =
-											getParamsFromView( myview ); // Create a new object
+										const newMyview = getParamsFromView( myview ); // Create a new object
 										newMyview[ key ] = value;
 										setAttributes( { myview: newMyview } ); // Update with the new object
 										// change it in svgObjects as well for keeping the current changes when template is switched
-										get_svg_object_by_name( svgTemplate ).view[
+										get_svg_object_by_name( svgTemplate ).view.parameters[
 											key
 										].value = value;
 									} }
@@ -184,14 +204,13 @@ export default function Edit( { attributes, setAttributes } ) {
 								<TextControl
 									key={ key }
 									label={ prop.label }
-									value={ myview[ key ].value }
+									value={ prop.value }
 									onChange={ ( value ) => {
-										const newMyview =
-											getParamsFromView( myview ); // Create a new object
+										const newMyview = getParamsFromView( myview ); // Create a new object
 										newMyview[ key ] = value;
 										setAttributes( { myview: newMyview } ); // Update with the new object
 										// change it in svgObjects as well for keeping the current changes when template is switched
-										get_svg_object_by_name( svgTemplate ).view[
+										get_svg_object_by_name( svgTemplate ).view.parameters[
 											key
 										].value = value;
 									} }
@@ -205,7 +224,7 @@ export default function Edit( { attributes, setAttributes } ) {
 									id={ `colorpicker-${ key }` }
 								>
 									<ColorPicker
-										color={ myview[ key ].value }
+										color={ prop.value }
 										onChange={ ( value ) => {
 											const newMyview =
 												getParamsFromView( myview ); // Create a new object
@@ -214,7 +233,7 @@ export default function Edit( { attributes, setAttributes } ) {
 												myview: newMyview,
 											} ); // Update with the new object
 											// change it in svgObjects as well for keeping the current changes when template is switched
-											get_svg_object_by_name( svgTemplate ).view[
+											get_svg_object_by_name( svgTemplate ).view.parameters[
 												key
 											].value = value;
 										} }
@@ -241,15 +260,15 @@ export default function Edit( { attributes, setAttributes } ) {
 											? colors[ colorKey ].value
 											: colors[ colorKey ].default,
 									onChange: ( value ) => {
-										const newMyview =
-											getParamsFromView( myview ); // Create a new object
+										const newMyview = getParamsFromView( myview ); // Create a new object
 										colors[ colorKey ].value = value;
-										// now save colors to attributes
-										newMyview[key] = colors;
+										// now save color to attributes
+										newMyview[key][colorKey] = value;
 										setAttributes( { myview: newMyview } ); 
 										//change it in svgObjects as well for keeping the current changes when template is switched
 										// Fix: if you switch between 2 instances of the same svg_template, the colors are mixed up in the newly selected one, probably because the colors are stored in the svgObjects array
-										get_svg_object_by_name( svgTemplate ).view[key].value = value;
+										// Fix: this remains problematic, see to it:
+										get_svg_object_by_name( svgTemplate ).view.parameters[key].value = colors;
 									},
 									label: colors[ colorKey ].label,
 								} )

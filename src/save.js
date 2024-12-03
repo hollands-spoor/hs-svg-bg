@@ -35,7 +35,7 @@ export default function Save( { attributes } ) {
 
 	let myview = get_svg_object_by_name( svgTemplate ).view;
 
-	myview = mergeInAttributes( myview, attributes.myview );
+	myview.parameters = mergeInAttributes( myview.parameters, attributes.myview );
 
 	const mytemplate = get_svg_object_by_name( svgTemplate ).template;
 	const svgResult = renderTemplate( mytemplate, myview );

@@ -9,13 +9,27 @@ export const get_svg_object_by_name = ( name ) => {
 }
 
 export const mergeInAttributes = ( view, atts ) => {
-	// iterate through atts if atts[key] exists and view[key] exists then view[key].value = atts[key]
-	const mergedView = { ...view };
+	// iterate through atts if atts[key] exists and view.parameters[key] exists then view[key].value = atts[key]
+	const mergedView = { ...view};
 	Object.keys( atts ).forEach( ( key ) => {
-		if ( mergedView[ key ] ) {
-			mergedView[ key ].value = atts[ key ];
-		}
+
+		// if mergedView[key] does not exist, then create it. Not just ignore it!!
+//		if ( mergedView[ key ] ) {
+			if( typeof mergedView[key] === "undefined" ) {
+				mergedView[key] = { value: {} };
+			}
+			if( typeof mergedView[key].value === "undefined" ) {
+				mergedView[key].value = {};
+			}
+			if( typeof atts[key] === "object") {
+				mergedView[key].value = mergeInAttributes ( mergedView[key].value,  atts[key] )
+
+			} else {
+				mergedView[key].value = atts[key];
+			}
+//		}
 	} );
+	//console.log( 'view: ', view, ' merged view: ', mergedView );
 	return mergedView;
 };
 
@@ -57,19 +71,18 @@ const sanitizeView = ( view ) => {
 };
 
 export const renderTemplate = ( template, data ) => {
-	data = sanitizeView( data );
+	data.parameters = sanitizeView( data.parameters );
 	return template.replace( /{{(.*?)}}/g, ( _, key ) => {
 		const trimmedKey = key.trim();
-		// TODO: check if data[trimmedKey] exists
-		const prop = data[ trimmedKey ];
-
-		if ( prop && prop.type === 'jsf' && prop.calc ) {
-			const calcFunction = new Function( 'data', 'key', prop.calc );
-			const returndata = calcFunction( data, key, prop.value );
-			return returndata;
+		// Check if trimmedKey is in parameters, if so, return parameters[trimmedKey].value
+		if( typeof data.parameters[trimmedKey] !== 'undefined' ) {
+			return data.parameters[trimmedKey].value;
 		}
-		if ( prop && prop.type !== 'jsf' ) {
-			return prop.value;
+		// If trimmedKey is in functions, than evaluate that function passing  data.parameters as argument
+		if( typeof data.functions[trimmedKey] !== 'undefined' ) {
+			const calcFunction = new Function( 'data', 'key', data.functions[trimmedKey] );
+			const returndata = calcFunction( data.parameters, trimmedKey, data.functions[trimmedKey] );
+			return returndata;
 		}
 		return 'no-render';
 	} );

@@ -74,15 +74,9 @@
 				"dx": 64 ,
 				"stroke_width" : 0.5,
 				"colorpanel": {
-					"stroke": {
-						"value" : "#000000"
-					},
-					"background": {
-						"value" : "#f8f8f8"
-					},
-					"color_1": {
-						"value" : "#f0f0f0"
-					}
+					"stroke": "#000000",
+					"background": "#f8f8f8",
+					"color_1": "#f0f0f0"
 				}
 			}
 		},
@@ -93,15 +87,9 @@
 				"dx": 100,
 				"stroke_width" : 2,
 				"colorpanel": {
-					"stroke": {
-						"value" : "#ffffff"
-					},
-					"background": {
-						"value" : "#ac7112"
-					},
-					"color_1": {
-						"value" : "#ffa500"
-					}
+					"stroke": "#ffffff",
+					"background": "#ac7112",
+					"color_1": "#ffa500"
 				}
 			}
 		},
@@ -112,15 +100,9 @@
 				"dx": 45,
 				"stroke_width" : 0.5,
 				"colorpanel": {
-					"stroke": {
-						"value" : "#F6CFF4"
-					},
-					"background": {
-						"value" : "#ffffff"
-					},
-					"color_1": {
-						"value" : "#666666"
-					}
+					"stroke": "#F6CFF4",
+					"background": "#ffffff",
+					"color_1": "#666666"
 				}
 			}
 		}
