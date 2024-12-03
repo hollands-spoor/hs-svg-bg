@@ -2,78 +2,48 @@
 	"name": "seigaiha",
 	"label": "Seigaiha",
 	"view": {
-		"radius": {
-			"type": "range",
-			"default": 16,
-			"min": 8,
-			"max": 100,
-			"step": 0.5,
-			"label": "Radius"
-		},
-		"r3": {
-			"type": "jsf",
-			"calc": "return Math.round( data.radius.value - ( data.stroke_width.value / 2 ) );"
-		},
-		"r2": {
-			"type": "jsf",
-			"calc": "return Math.round( ( data.radius.value * 2 / 3 ) - ( data.stroke_width.value / 2 ) );"
-		},
-		"r1": {
-			"type": "jsf",
-			"calc": "return Math.round( ( data.radius.value / 3 ) - ( data.stroke_width.value / 2 ) );"
-		},
-		"halfr": {
-			"type": "jsf",
-			"calc": "return Math.round( data.radius.value / 2 );"
-		},
-		"doubler": {
-			"type": "jsf",
-			"calc": "return Math.round( data.radius.value * 2 );"
-		},
-		"svg_width": {
-			"type": "jsf",
-			"calc": "return Math.round(data.radius.value * 2 );"
-		},
-		"svg_height": {
-			"type": "jsf",
-			"calc": "return Math.round( data.radius.value );"
-		},
-		"stroke_width": {
-			"type": "range",
-			"default": 2,
-			"min": 0.5,
-			"max": 40,
-			"step": 0.5,
-			"label": "Stroke Width"
-		},
-		"colorpanel": {
-			"type": "colorpanel",
-			"label": "Colors",
-			"default": {
-				"stroke": { "label": "Stroke", "default": "#00ff00" },
-				"color_1": { "label": "Color 1", "default": "#ff0000" },
-				"color_2": { "label": "Color 2", "default": "#00ff00" },
-				"color_3": { "label": "Color 3", "default": "#0000ff" }
+		"parameters" : {
+			"radius": {
+				"type": "range",
+				"default": 42,
+				"min": 8,
+				"max": 100,
+				"step": 0.5,
+				"label": "Radius"
+			},
+			"stroke_width": {
+				"type": "range",
+				"default": 1,
+				"min": 0.5,
+				"max": 40,
+				"step": 0.5,
+				"label": "Stroke Width"
+			},
+			"colorpanel": {
+				"type": "colorpanel",
+				"label": "Colors",
+				"value": {
+					"stroke": { "label": "Stroke", "default": "#959dc0" },
+					"color_1": { "label": "Color 1", "default": "#1f329f" },
+					"color_2": { "label": "Color 2", "default": "#1f329f" },
+					"color_3": { "label": "Color 3", "default": "#1f329f" }
+				}
 			}
 		},
-		"svg_stroke": {
-			"type": "jsf",
-			"calc": "return ( data.colorpanel.value.stroke.value );"
-		},
-		"c1": {
-			"type": "jsf",
-			"calc": "return ( data.colorpanel.value.color_1.value );"
-		},
-		"c2": {
-			"type": "jsf",
-			"calc": "return ( data.colorpanel.value.color_2.value );"
-		},
-		"c3": {
-			"type": "jsf",
-			"calc": "return ( data.colorpanel.value.color_3.value );"
+		"functions" : {
+			"r3": "return Math.round( data.radius.value - ( data.stroke_width.value / 2 ) );",
+			"r2": "return Math.round( ( data.radius.value * 2 / 3 ) - ( data.stroke_width.value / 2 ) );",
+			"r1": "return Math.round( ( data.radius.value / 3 ) - ( data.stroke_width.value / 2 ) );",
+			"halfr": "return Math.round( data.radius.value / 2 );",
+			"doubler": "return Math.round( data.radius.value * 2 );",
+			"svg_width": "return Math.round(data.radius.value * 2 );",
+			"svg_height": "return Math.round( data.radius.value );",
+			"svg_stroke": "return ( data.colorpanel.value.stroke.value );",
+			"c1": "return ( data.colorpanel.value.color_1.value );",
+			"c2": "return ( data.colorpanel.value.color_2.value );",
+			"c3": "return ( data.colorpanel.value.color_3.value );"
 		}
 	},
-
 	"presets" : [
 		{
 			"label" : "Pink",

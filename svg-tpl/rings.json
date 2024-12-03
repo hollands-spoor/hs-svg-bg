@@ -2,70 +2,52 @@
 	"name": "rings",
 	"label": "Rings",
 	"view": {
-		"radius": {
-			"type": "range",
-			"default": 60,
-			"min": 8,
-			"max": 100,
-			"step": 0.5,
-			"label": "Radius"
-		},
-		"halfr": {
-			"type": "jsf",
-			"calc": "return Math.floor( ( data.radius.value / 2 ) - ( data.stroke_width.value / 2 ) );"
-		},
-		"dx": {
-			"type": "range",
-			"default": 64,
-			"min": 8,
-			"max": 100,
-			"step": 0.5,
-			"label": "DX"
-		},
-		"halfx": {
-			"type": "jsf",
-			"calc": "return Math.floor( data.dx.value / 2 );"
-		},
-		"doubler": {
-			"type": "jsf",
-			"calc": "return Math.round( data.radius.value * 2 );"
-		},
-		"stroke_width": {
-			"type": "range",
-			"default": 0.5,
-			"min": 0,
-			"max": 40,
-			"step": 0.5,
-			"label": "Stroke Width"
-		},
-		"colorpanel": {
-			"type": "colorpanel",
-			"label": "Colors",
-			"default": {
-				"stroke": { "label": "Stroke", "default": "#000000" },
-				"background": { "label": "Background", "default": "#e0e0e0" },
-				"color_1": { "label": "Color 1", "default": "#f0f0f0" }
+		"parameters" : {
+			"radius": {
+				"type": "range",
+				"default": 60,
+				"min": 8,
+				"max": 100,
+				"step": 0.5,
+				"label": "Radius"
+			},
+			"dx": {
+				"type": "range",
+				"default": 64,
+				"min": 8,
+				"max": 100,
+				"step": 0.5,
+				"label": "DX"
+			},
+			"stroke_width": {
+				"type": "range",
+				"default": 0.5,
+				"min": 0,
+				"max": 40,
+				"step": 0.5,
+				"label": "Stroke Width"
+			},
+			"colorpanel": {
+				"type": "colorpanel",
+				"label": "Colors",
+				"value": {
+					"stroke": { "label": "Stroke", "default": "#000000" },
+					"background": { "label": "Background", "default": "#e0e0e0" },
+					"color_1": { "label": "Color 1", "default": "#f0f0f0" }
+				}
 			}
 		},
-
-		"svg_stroke": {
-			"type": "jsf",
-			"calc": "return ( data.colorpanel.value.stroke.value );"
-		},
-		"svg_fill": {
-			"type": "jsf",
-			"calc": "return ( data.colorpanel.value.background.value );"
-		},
-		"svg_fill_2": {
-			"type": "jsf",
-			"calc": "return ( data.colorpanel.value.color_1.value );"
-		},
-		"c1": {
-			"type": "jsf",
-			"calc": "return ( data.colorpanel.value.color_1.value );"
+		"functions" : {
+			"halfr": "return Math.floor( ( data.radius.value / 2 ) - ( data.stroke_width.value / 2 ) );",
+			"halfx": "return Math.floor( data.dx.value / 2 );",
+			"doubler": "return Math.round( data.radius.value * 2 );",
+			"svg_stroke": "return ( data.colorpanel.value.stroke.value );",
+			"svg_fill": "return ( data.colorpanel.value.background.value );",
+			"svg_fill_2": "return ( data.colorpanel.value.color_1.value );",
+			"c1": "return ( data.colorpanel.value.color_1.value );"
 		}
-	},
 
+	},
 	"presets" : [
 		{
 			"label" : "Elegant",
