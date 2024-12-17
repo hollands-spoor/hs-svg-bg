@@ -78,7 +78,7 @@ export const renderTemplate = ( template, data ) => {
 		if( typeof data.parameters[trimmedKey] !== 'undefined' ) {
 			return data.parameters[trimmedKey].value;
 		}
-		// If trimmedKey is in functions, than evaluate that function passing  data.parameters as argument
+		// If trimmedKey is in functions, then evaluate that function passing  data.parameters as argument
 		if( typeof data.functions[trimmedKey] !== 'undefined' ) {
 			const calcFunction = new Function( 'data', 'key', data.functions[trimmedKey] );
 			const returndata = calcFunction( data.parameters, trimmedKey, data.functions[trimmedKey] );
