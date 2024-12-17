@@ -1,2 +1,3 @@
 # hs-svg-bg
-Seamles SVG backgrounds for Wordpress
+Gutenberg block with adjustable seamless SVG backgrounds.
+

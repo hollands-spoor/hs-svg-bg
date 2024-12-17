@@ -1,0 +1,114 @@
+{
+	"name": "rings",
+	"label": "Rings",
+	"view": {
+		"parameters": {
+			"radius": {
+				"type": "range",
+				"default": 60,
+				"min": 8,
+				"max": 100,
+				"step": 0.5,
+				"label": "Radius"
+			},
+			"dx": {
+				"type": "range",
+				"default": 64,
+				"min": 8,
+				"max": 100,
+				"step": 0.5,
+				"label": "DX"
+			},
+			"stroke_width": {
+				"type": "range",
+				"default": 0.5,
+				"min": 0,
+				"max": 40,
+				"step": 0.5,
+				"label": "Stroke Width"
+			},
+			"colorpanel": {
+				"type": "colorpanel",
+				"label": "Colors",
+				"value": {
+					"stroke": {
+						"label": "Stroke",
+						"default": "#000000"
+					},
+					"background": {
+						"label": "Background",
+						"default": "#e0e0e0"
+					},
+					"color_1": {
+						"label": "Color 1",
+						"default": "#f0f0f0"
+					}
+				}
+			}
+		},
+		"functions": {
+			"halfr": "return Math.floor( ( data.radius.value / 2 ) - ( data.stroke_width.value / 2 ) );",
+			"halfx": "return Math.floor( data.dx.value / 2 );",
+			"doubler": "return Math.round( data.radius.value * 2 );",
+			"svg_stroke": "return ( data.colorpanel.value.stroke.value );",
+			"svg_fill": "return ( data.colorpanel.value.background.value );",
+			"svg_fill_2": "return ( data.colorpanel.value.color_1.value );",
+			"c1": "return ( data.colorpanel.value.color_1.value );"
+		}
+	},
+	"presets": [
+		{
+			"label": "Elegant",
+			"view": {
+				"radius": 60,
+				"dx": 64,
+				"stroke_width": 0.5,
+				"colorpanel": {
+					"stroke": "#000000",
+					"background": "#f8f8f8",
+					"color_1": "#f0f0f0"
+				}
+			}
+		},
+		{
+			"label": "Horrible 70",
+			"view": {
+				"radius": 90,
+				"dx": 100,
+				"stroke_width": 2,
+				"colorpanel": {
+					"stroke": "#ffffff",
+					"background": "#ac7112",
+					"color_1": "#ffa500"
+				}
+			}
+		},
+		{
+			"label": "Awfull 80",
+			"view": {
+				"radius": 80,
+				"dx": 45,
+				"stroke_width": 0.5,
+				"colorpanel": {
+					"stroke": "#F6CFF4",
+					"background": "#ffffff",
+					"color_1": "#666666"
+				}
+			}
+		},
+		{
+			"label": "Store",
+			"view": {
+				"radius": 42,
+				"dx": 36,
+				"stroke_width": 1,
+				"colorpanel": {
+					"stroke": "#111111",
+					"background": "#FFEE58",
+					"color_1": "#F6CFF4"
+				}
+			}
+		}
+	],
+	"template": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"{{dx}}\" height=\"{{dx}}\" viewBox=\"0 0 {{dx}} {{dx}}\" fill=\"{{svg_fill}}\" stroke=\"{{svg_stroke}}\" stroke-width=\"{{stroke_width}}\" stroke-linecap=\"round\" stroke-linejoin=\"round\" class=\"svg_bg\"><defs><g id=\"total\"><circle class=\"circle\" fill=\"none\" id=\"circle-01\" cx=\"{{halfx}}\" cy=\"{{halfx}}\" r=\"{{halfr}}\" /></g><g id=\"totalfill\"><circle class=\"circle\" fill=\"{{svg_fill_2}}\" id=\"circle-01\" cx=\"{{halfx}}\" cy=\"{{halfx}}\" r=\"{{halfr}}\" /></g><pattern id=\"pattern1\" patternUnits=\"userSpaceOnUse\" width=\"{{dx}}\" height=\"{{dx}}\"><use id=\"u3\" href=\"#totalfill\" x=\"0\" y=\"0\" /><use id=\"u1\" href=\"#total\" x=\"-{{halfx}}\" y=\"-{{halfx}}\" /> <use id=\"u2\" href=\"#total\" x=\"{{halfx}}\" y=\"-{{halfx}}\" /> <use id=\"u4\" href=\"#total\" x=\"-{{halfx}}\" y=\"{{halfx}}\" /> <use id=\"u5\" href=\"#total\" x=\"{{halfx}}\" y=\"{{halfx}}\" /></pattern> </defs> <rect width=\"{{dx}}\" height=\"{{dx}}\" fill=\"{{svg_bbackground}}\" stroke=\"none\" /><rect width=\"{{dx}}\" height=\"{{dx}}\" fill=\"url(#pattern1)\" stroke=\"none\" /></svg>"
+}

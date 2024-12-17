@@ -1,0 +1,31 @@
+
+
+<svg xmlns="http://www.w3.org/2000/svg" 
+    width="{{dx}}" 
+    height="{{dy}}" 
+    viewBox="0 0 {{dx}} {{dy}}">
+    <defs>
+        <g id="ruit" style="transform:scale({{scale_1}})">
+            <path d="M {{halfx}},0 {{dx}},{{halfy}} {{halfx}},{{dy}}  0,{{halfy}} Z" stroke="{{color_1}}" fill="{{color_1}}"/>
+        </g>
+        <g id="polka" style="transform:scale({{scale_1}})">
+            <circle 
+                cx="{{halfx}}"
+                cy="{{halfx}}"
+                r="{{halfx}}"
+                stroke="{{color_1}}" 
+                fill="{{color_1}}"
+            />
+        </g>
+
+    </defs>
+    <g style="transform: scale(1)">
+        <rect width="{{dx}}" height="{{dy}}" x="0" y="0" fill="{{bg_fill}}"/>
+       <use href="#{{figure}}" x="0" y="0" />
+       <use href="#{{figure}}" x="{{halfx}}" y="{{halfy}}" />
+       
+    </g>
+</svg>
+
+        <!-- DID: maybe allow for other shapes the use elements can also refer to external svg's. Make a subdir with basic shapes and a form select to change basic element. Mind to exclude this subdir in php template file that scans this template directory 
+        No! Better to make some variants in this defs section and pass the id's as options to a selectbox via the json. The href in the use elements down here can then be filled with the select value on rendering Done -->

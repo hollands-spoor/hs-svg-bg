@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" 
+    width="{{dx}}" 
+    height="{{dx}}" 
+    viewBox="0 0 {{dx}} {{dx}}">
+    <g style="transform: scale({{scale1}})">
+        <rect width="{{ratio}}"  height="100" x="0" y="0"  fill="{{c1}}" />
+        <rect width="{{ratio}}"  height="100" x="{{ratio}}" y="0"  fill="{{c2}}" />
+        <rect width="{{dik1}}" height="100" x="{{p1}}" y="0"  fill="{{c1}}" />
+        <rect width="{{ratio}}"  height="100" x="{{p4}}" y="0" fill="{{c2}}" />
+        <rect width="{{ratio}}"  height="100" x="{{p2}}" y="0" fill="{{c1}}" />
+        <rect width="{{dik2}}" height="100" x="{{p3}}" y="0" fill="{{c2}}" />
+    </g>
+</svg>

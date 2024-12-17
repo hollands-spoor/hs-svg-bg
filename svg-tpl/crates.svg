@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" 
+    width="{{svg_width}}" 
+    height="{{svg_height}}" 
+    viewBox="0 0 {{svg_width}} {{svg_height}}">
+    <defs>
+        <path id="t1" d="M0,50 l60,-30 0,-20 -60,30 z" />
+        <path id="t2" d="M0,70 l60,30 20,-10 -60,-30 z" />
+        <path id="t3" d="M20,70 l0,-60 -20,-10 0,60 z" />
+        <g id="dark4-total" stroke="{{svg_stroke}}" stroke-width="{{stroke_width}}">
+            <use href="#t1" x="0" y="0" fill="{{c1}}" />
+            <use href="#t1" x="0" y="20" fill="{{c2}}" />
+            <use href="#t1" x="0" y="40" fill="{{c3}}" />
+            <use href="#t2" x="00" y="20" fill="{{c1}}" />
+            <use href="#t2" x="20" y="10" fill="{{c2}}" />
+            <use href="#t2" x="40" y="0" fill="{{c3}}" />
+            <use href="#t3" x="100" y="20" fill="{{c1}}" />
+            <use href="#t3" x="80" y="10" fill="{{c2}}" />
+            <use href="#t3" x="60" y="0" fill="{{c3}}" />
+        </g>
+    </defs>
+    <g style="transform: scale({{scale}})">
+        <use href="#dark4-total" x="0" y="0" />
+        <use href="#dark4-total" x="-60" y="-90" />
+        <use href="#dark4-total" x="60" y="-90" />
+        <use href="#dark4-total" x="-60" y="90" />
+        <use href="#dark4-total" x="60" y="90" />
+    </g>
+</svg>

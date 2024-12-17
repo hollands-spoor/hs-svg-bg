@@ -1,0 +1,127 @@
+{
+	"name": "diamond",
+	"label": "Diamond",
+	"view": {
+		"parameters": {
+			"scale_1": {
+				"type": "range",
+				"default": 0.25,
+				"min": 0.01,
+				"max": 0.5,
+				"step": 0.01,
+				"label": "Scale"
+			},
+			"figure": {
+				"type": "select",
+				"label": "Figure",
+				"default": "ruit",
+				"key": "figure-select",
+				"options": {
+					"ruit": "Diamond",
+					"polka": "Polka"
+				}
+			},
+			"dx": {
+				"type": "range",
+				"default": 20,
+				"min": 8,
+				"max": 255,
+				"step": 0.5,
+				"label": "DX"
+			},
+			"dy": {
+				"type": "range",
+				"default": 20,
+				"min": 8,
+				"max": 255,
+				"step": 0.5,
+				"label": "DY"
+			},
+			"stroke_width": {
+				"type": "range",
+				"default": 2,
+				"min": 0.5,
+				"max": 40,
+				"step": 0.5,
+				"label": "Stroke Width"
+			},
+			"colorpanel": {
+				"type": "colorpanel",
+				"label": "Colors",
+				"value": {
+					"background": {
+						"label": "Background",
+						"default": "#ff0000"
+					},
+					"color_1": {
+						"label": "Color 1",
+						"default": "#00ff00"
+					}
+				}
+			}
+		},
+		"functions": {
+			"halfx": "return Math.floor( data.dx.value / 2 );",
+			"halfy": "return Math.floor( data.dy.value / 2 );",
+			"color_1": "return ( data.colorpanel.value.color_1.value );",
+			"bg_fill": "return ( data.colorpanel.value.background.value );"
+		}
+	},
+	"presets": [
+		{
+			"label": "Cardinal",
+			"view": {
+				"scale_1": 0.1,
+				"dx": 60,
+				"dy": 100,
+				"figure": "ruit",
+				"colorpanel": {
+					"background": "#450874",
+					"color_1": "#ece49f"
+				}
+			}
+		},
+		{
+			"label": "Leaves",
+			"view": {
+				"scale_1": 0.04,
+				"dx": 150,
+				"dy": 250,
+				"figure": "polka",
+				"colorpanel": {
+					"background": "#FBFAF3",
+					"color_1": "#19AF53"
+				}
+			}
+		},
+		{
+			"label": "Polka",
+			"view": {
+				"scale_1": 0.25,
+				"figure": "polka",
+				"dx": 128,
+				"dy": 128,
+				"stroke_width": 2,
+				"colorpanel": {
+					"background": "#FFFFFF",
+					"color_1": "#111111"
+				}
+			}
+		},
+		{
+			"label": "Candy",
+			"view": {
+				"scale_1": 0.25,
+				"figure": "polka",
+				"dx": 64,
+				"dy": 64,
+				"stroke_width": 2,
+				"colorpanel": {
+					"background": "#FFEE58",
+					"color_1": "#F6CFF4"
+				}
+			}
+		}
+	],
+	"template": "file"
+}

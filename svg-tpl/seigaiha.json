@@ -1,0 +1,118 @@
+{
+	"name": "seigaiha",
+	"label": "Seigaiha",
+	"view": {
+		"parameters" : {
+			"radius": {
+				"type": "range",
+				"default": 42,
+				"min": 8,
+				"max": 100,
+				"step": 0.5,
+				"label": "Radius"
+			},
+			"stroke_width": {
+				"type": "range",
+				"default": 1,
+				"min": 0.5,
+				"max": 40,
+				"step": 0.5,
+				"label": "Stroke Width"
+			},
+			"colorpanel": {
+				"type": "colorpanel",
+				"label": "Colors",
+				"value": {
+					"stroke": { "label": "Stroke", "default": "#959dc0" },
+					"color_1": { "label": "Color 1", "default": "#1f329f" },
+					"color_2": { "label": "Color 2", "default": "#1f329f" },
+					"color_3": { "label": "Color 3", "default": "#1f329f" }
+				}
+			}
+		},
+		"functions" : {
+			"r3": "return Math.round( data.radius.value - ( data.stroke_width.value / 2 ) );",
+			"r2": "return Math.round( ( data.radius.value * 2 / 3 ) - ( data.stroke_width.value / 2 ) );",
+			"r1": "return Math.round( ( data.radius.value / 3 ) - ( data.stroke_width.value / 2 ) );",
+			"halfr": "return Math.round( data.radius.value / 2 );",
+			"doubler": "return Math.round( data.radius.value * 2 );",
+			"svg_width": "return Math.round(data.radius.value * 2 );",
+			"svg_height": "return Math.round( data.radius.value );",
+			"svg_stroke": "return ( data.colorpanel.value.stroke.value );",
+			"c1": "return ( data.colorpanel.value.color_1.value );",
+			"c2": "return ( data.colorpanel.value.color_2.value );",
+			"c3": "return ( data.colorpanel.value.color_3.value );"
+		}
+	},
+	"presets" : [
+		{
+			"label" : "Pink",
+			"view" : {
+				"radius": 36 ,
+				"stroke_width" : 1,
+				"colorpanel": {
+					"stroke":  "#ee96ea",	
+					"color_1": "#F6CFF4",
+					"color_2": "#F6CFF4",
+					"color_3": "#F6CFF4"
+				}	
+			}
+		},
+		{
+			"label" : "Pink Gradient",
+			"view" : {
+				"radius": 36 ,
+				"stroke_width" : 2.5,
+				"colorpanel": {
+					"stroke"  : "#ee96ea",	
+					"color_1" : "#F6CFF4",
+					"color_2" : "#F7DEF5",
+					"color_3" : "#fbeffb"
+				}
+			}
+		},
+		{
+			"label" : "Lime",
+			"view" : {
+				"radius": 60,
+				"stroke_width" : 5,
+				"colorpanel": {
+					"stroke"  : "#24c307",	
+					"color_1" : "#faf7da",
+					"color_2" : "#f9f09c",
+					"color_3" : "#FFEE58"
+				}	
+			}
+		},
+		{
+			"label" : "Classic 1",
+			"view" : {
+				"radius": 42,
+				"stroke_width" : 6,
+				"colorpanel": {
+					"stroke" : "#1f329f",	
+					"color_1": "#B8E2FF",
+					"color_2": "#B8E2FF",
+					"color_3": "#B8E2FF"
+				}
+			}
+		},
+		{
+			"label" : "Classic 2",
+			"view" : {
+				"radius": 42,
+				"stroke_width" : 1,
+				"colorpanel": {
+					"stroke" : "#959dc0",	
+					"color_1": "#1f329f",
+					"color_2": "#1f329f",
+					"color_3": "#1f329f"
+				}
+			}
+		}
+
+	],
+
+
+	"template": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"{{svg_width}}\" height=\"{{svg_height}}\" viewBox=\"0 0 {{svg_width}} {{svg_height}}\" stroke=\"{{svg_stroke}}\" stroke-width=\"{{stroke_width}}\" stroke-linecap=\"round\" stroke-linejoin=\"round\" class=\"svg_bg\"><defs><g id=\"total\"><circle class=\"circle\" fill=\"{{c1}}\" id=\"circle-01\" cx=\"0\" cy=\"{{halfr}}\" r=\"{{r3}}\" /><circle class=\"circle\" id=\"circle-02\" fill=\"{{c2}}\" cx=\"0\" cy=\"{{halfr}}\" r=\"{{r2}}\" /><circle class=\"circle\" id=\"circle-03\"  fill=\"{{c3}}\" cx=\"0\" cy=\"{{halfr}}\" r=\"{{r1}}\" /></g><pattern id=\"pattern1\" patternUnits=\"userSpaceOnUse\" width=\"{{doubler}}\" height=\"{{radius}}\"><use id=\"u1\" href=\"#total\" x=\"{{radius}}\" y=\"0\" /> <use id=\"u2\" href=\"#total\" x=\"0\" y=\"0\" /> <use id=\"u3\" href=\"#total\" x=\"{{doubler}}\" y=\"0\" /> <use id=\"u4\" href=\"#total\" x=\"{{radius}}\" y=\"{{halfr}}\" /> <use id=\"u5\" href=\"#total\" x=\"0\" y=\"{{radius}}\" /> <use id=\"u6\" href=\"#total\" x=\"{{doubler}}\" y=\"{{radius}}\" /> </pattern> </defs> <rect width=\"{{svg_width}}\" height=\"{{svg_height}}\" fill=\"url(#pattern1)\" stroke=\"none\" id=\"rect16\" /></svg>"
+}
