@@ -1,0 +1,48 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "hollands-spoor/svg-bg",
+	"version": "0.1.0",
+	"title": "SVG Background",
+	"category": "widgets",
+	"icon": "smiley",
+	"description": "Provides a block with an adjustable SVG background.",
+	"example": {},
+	"attributes": {
+		"svgTemplate": {
+			"type": "string",
+			"default": "asanoha"
+		},
+		"myview": {
+			"type": "object",
+			"default": {}
+		},
+		"mytemplate": {
+			"type": "string",
+			"default": ""
+		},
+		"myPreset" : {
+			"type": "integer",
+			"default": 0
+		}
+	},
+
+	"supports": {
+		"html": false,
+		"layout": true,
+		"align": true,
+		"background": {
+			"backgroundImage": true,
+			"backgroundSize": true
+		},
+		"spacing": {
+			"padding": true,
+			"margin": true
+		}
+	},
+	"textdomain": "hs-svg-bg",
+	"editorScript": "file:./index.js",
+	"editorStyle": "file:./index.css",
+	"style": "file:./style-index.css",
+	"viewScript": "file:./view.js"
+}
