@@ -9,21 +9,25 @@
 	"description": "Provides a block with an adjustable SVG background.",
 	"example": {},
 	"attributes": {
-		"svgTemplate": {
-			"type": "string",
-			"default": "asanoha"
-		},
-		"myview": {
-			"type": "object",
-			"default": {}
-		},
-		"mytemplate": {
+		"svgTemplateName": {
 			"type": "string",
 			"default": ""
 		},
-		"myPreset" : {
+		"parameters": {
+			"type": "object",
+			"default": {}
+		},
+		"functions": {
+			"type": "object",
+			"default": {}
+		},
+		"preset" : {
 			"type": "integer",
 			"default": 0
+		},
+		"runtime_data": {
+			"type": "object",
+			"default": { "ran" : false, "data" : {} }
 		}
 	},
 

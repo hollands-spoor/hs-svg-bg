@@ -5,7 +5,7 @@
 
 import { useBlockProps, InnerBlocks } from '@wordpress/block-editor';
 
-import { get_svg_object_by_name, mergeInAttributes, renderTemplate } from './templating';
+import { get_svg_object_by_name, mergeInAttributes, maybe_recalculate_parameters, renderTemplate } from './templating';
 
 /**
  * The save function defines the way in which the different attributes should
@@ -19,26 +19,33 @@ import { get_svg_object_by_name, mergeInAttributes, renderTemplate } from './tem
  * @return {Element} Element to render.
  */
 
+
+//TODO: Find out what the extra style is doing here
+
 export default function Save( { attributes } ) {
 	let blockProps = useBlockProps.save( {
 		style: {},
 	} );
 
-	const svgTemplate = attributes.svgTemplate;
-	if( get_svg_object_by_name( svgTemplate ) === undefined ) {
+	const svgTemplateName = attributes.svgTemplateName;
+	if( get_svg_object_by_name( svgTemplateName ) === undefined ) {
+		// console.log( 'svgTemplate not found' );
 		return (
 			<div { ...blockProps }>
 				<InnerBlocks.Content />
 			</div>
 		);
 	}
+	const myObject = get_svg_object_by_name( svgTemplateName );
+	
+	let myParameters = myObject.parameters;
 
-	let myview = get_svg_object_by_name( svgTemplate ).view;
+	myParameters = mergeInAttributes( myParameters, attributes.parameters );
+	myObject.parameters = myParameters;
+	maybe_recalculate_parameters( myObject );
 
-	myview.parameters = mergeInAttributes( myview.parameters, attributes.myview );
-
-	const mytemplate = get_svg_object_by_name( svgTemplate ).template;
-	const svgResult = renderTemplate( mytemplate, myview );
+	const mytemplate = myObject.template;
+	const svgResult = renderTemplate( mytemplate, myObject);
 	const svgDataUri = `data:image/svg+xml,${ encodeURIComponent(
 		svgResult
 	) }`;

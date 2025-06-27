@@ -1,0 +1,117 @@
+<svg xmlns="http://www.w3.org/2000/svg" 
+    viewBox="0 0 {{tott}} {{tott}}" 
+    width="{{scaled}}" 
+    height="{{scaled}}" version="1.1"
+    xml:space="preserve">
+    <defs>
+
+        <g id="f1-v">
+            <path d="M{{v5}},0 L75,0 L125,50 L{{v7}},{{v4}}" />
+            <path d="M{{v7}},{{hst}} L125,0 L200,0 L200,{{hst}}" />
+            <path d="M{{v10}},{{v7}} L200,125 L200,200 L{{v10}},200" />
+            <path d="M{{v8}},200 L125,200 L75,150 L{{v6}},{{v9}}" />
+            <path d="M{{v6}},{{v10}} L75,200 L0,200 L0,{{v10}}" />
+            <path d="M{{hst}},{{v6}} L0,75 L0,0 L{{hst}},0" />
+        </g>
+        <g id="f1-a">
+            <path d="M0,0 L75,0 M125,50 L100,75, L75,50 L125,0  
+            M200,0 L200,75 L175,100 L200,125 
+            M200,200 L125,200 
+            M75,150 L100,125 L125,150 
+            L75,200  
+            M0,200 L0,125 L25,100 L0,75 " />
+        </g>
+        <g id="f2-v">
+            <path d="M{{v7}},{{hst}} L125,0 L200,0 L200,{{hst}}" />
+            <path d="M200,{{v5}} L200,75 L150,125 L{{v9}},{{v7}}" />
+            <path d="M{{v10}},{{v7}} L200,125 L200,200 L{{v10}},200" />
+            <path d="M{{v6}},{{v10}} L75,200 L0,200 L0,{{v10}}" />
+            <path d="M0,{{v8}} L0,125 L50,75 L{{v4}},{{v6}}" />
+            <path d="M{{hst}},{{v6}} L0,75 L0,0 L{{hst}},0" />
+        </g>
+
+        <g id="f2-a">
+            <path d="
+            M 0,0 L75,0 L100,25 L125,0 
+            M200,0 L200,75 
+            M150,125 L125,100 L150,75 L175,100 L200,125 
+            M200,200 L125,200 L100,175 L75 200 
+            M0,200 L0,125 
+            M50,75 L75,100 L50,125 L25,100 L0,75" />
+
+
+        </g>
+
+        <g id="f1-bg" stroke="none" stroke-width="0">
+            <g fill="{{bg_fill_2}}" >
+                <path d="M0,0 L75,0 100,25 125,0 200,0 200,75 175,100 200,125 200,200 125,200 100,175 75,200 0,200 0,125 25,100 0,75z"/>
+            </g>
+            <g fill="{{bg_fill_3}}" >
+                <path d="M0,0 L{{v2}},0 {{v2}},{{v2}} 0,{{v2}}z"/>
+                <path d="M{{v3}},0 L200,0 200,{{v2}} {{v3}},{{v2}}z"/>
+                <path d="M{{v3}},{{v3}} L200,{{v3}} 200,200 {{v3}},200z"/>
+                <path d="M0,{{v3}} L{{v2}},{{v3}} {{v2}},200 0,200z"/>
+            </g>
+
+            <g fill="{{bg_fill_4}}" >
+                <path d="M100,25 L125,50 100,75 75,50"/>
+                <path d="M100,175 L125,150 100,125 75,150z"/>
+            </g>
+        </g>
+
+        <g id="f2-bg" stroke="none" stroke-width="0">
+            <g fill="{{bg_fill_2}}" >
+                <path d="M{{v2}},0 L75,0 100,25 125,0 {{v3}},0 {{v3}},{{v2}} 200,{{v2}} 200,75 175,100 200,125 200,{{v3}} {{v3}},{{v3}} {{v3}},200 125,200 100,175 75,200 {{v2}},200 {{v2}},{{v3}} 0,{{v3}} 0,125 25,100 0,75 0,{{v2}} {{v2}},{{v2}}z"/>
+            </g>
+            <g fill="{{bg_fill_4}}" >
+                <path d="M175,100 L150,75 125,100 150,125z" />
+                <path d="M25,100 L50,75 75,100 50,125z" />
+            </g>
+        </g>
+
+
+
+
+    </defs>
+    <rect width="{{tott}}" height="{{tott}}" fill="{{bg_fill}}" />
+    <g stroke-linejoin="round">
+
+        <use id="u1c" href="#f1-bg" x="{{st}}" y="{{st}}"/>
+
+        <use id="u2c" href="#f2-bg" x="{{minst}}" y="{{minst}}"/>
+        <use id="u2c" href="#f2-bg" x="{{plust}}" y="{{minst}}"/>
+        <use id="u2c" href="#f2-bg" x="{{minst}}" y="{{plust}}"/>
+        <use id="u2c" href="#f2-bg" x="{{plust}}" y="{{plust}}"/>
+
+        <use id="u1b" href="#f2-a" x="{{minst}}" y="{{minst}}" fill="none" stroke-width="{{st}}" stroke="{{color_2}}" />
+        <use id="u1w" href="#f2-a" x="{{minst}}" y="{{minst}}" fill="none" stroke-width="{{hst}}" stroke="{{color_1}}" />
+
+        <use id="u2b" href="#f2-a" x="{{plust}}" y="{{minst}}" fill="none" stroke-width="{{st}}" stroke="{{color_2}}" />
+        <use id="u2w" href="#f2-a" x="{{plust}}" y="{{minst}}" fill="none" stroke-width="{{hst}}" stroke="{{color_1}}" />
+
+        <use id="u3b" href="#f1-a" x="{{st}}" y="{{st}}" fill="none" stroke-width="{{st}}" stroke="{{color_2}}" />
+        <use id="u3w" href="#f1-a" x="{{st}}" y="{{st}}" fill="none" stroke-width="{{hst}}" stroke="{{color_1}}" />
+
+        <use id="u4b" href="#f2-a" x="{{minst}}" y="{{plust}}" fill="none" stroke-width="{{st}}" stroke="{{color_2}}" />
+        <use id="u4w" href="#f2-a" x="{{minst}}" y="{{plust}}" fill="none" stroke-width="{{hst}}" stroke="{{color_1}}" />
+
+        <use id="u5b" href="#f2-a" x="{{plust}}" y="{{plust}}" fill="none" stroke-width="{{st}}" stroke="{{color_2}}" />
+        <use id="u5w" href="#f2-a" x="{{plust}}" y="{{plust}}" fill="none" stroke-width="{{hst}}" stroke="{{color_1}}" />
+
+        <use id="u1bv" href="#f2-v" x="{{minst}}" y="{{minst}}" fill="none" stroke-width="{{st}}" stroke="{{color_2}}" />
+        <use id="u1wv" href="#f2-v" x="{{minst}}" y="{{minst}}" fill="none" stroke-width="{{hst}}" stroke="{{color_1}}" />
+
+        <use id="u2bv" href="#f2-v" x="{{plust}}" y="{{minst}}" fill="none" stroke-width="{{st}}" stroke="{{color_2}}" />
+        <use id="u2wv" href="#f2-v" x="{{plust}}" y="{{minst}}" fill="none" stroke-width="{{hst}}" stroke="{{color_1}}" />
+
+        <use id="u3bv" href="#f1-v" x="{{st}}" y="{{st}}" fill="none" stroke-width="{{st}}" stroke="{{color_2}}" />
+        <use id="u3wv" href="#f1-v" x="{{st}}" y="{{st}}" fill="none" stroke-width="{{hst}}" stroke="{{color_1}}" />
+
+        <use id="u4bv" href="#f2-v" x="{{minst}}" y="{{plust}}" fill="none" stroke-width="{{st}}" stroke="{{color_2}}" />
+        <use id="u4wv" href="#f2-v" x="{{minst}}" y="{{plust}}" fill="none" stroke-width="{{hst}}" stroke="{{color_1}}" />
+
+        <use id="u5bv" href="#f2-v" x="{{plust}}" y="{{plust}}" fill="none" stroke-width="{{st}}" stroke="{{color_2}}" />
+        <use id="u5wv" href="#f2-v" x="{{plust}}" y="{{plust}}" fill="none" stroke-width="{{hst}}" stroke="{{color_1}}" />
+
+    </g>
+</svg>

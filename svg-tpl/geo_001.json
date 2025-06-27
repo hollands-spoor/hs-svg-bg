@@ -1,0 +1,123 @@
+{
+	"name": "geo_001",
+	"label": "Geo 1",
+
+		"parameters": {
+			"dx": {
+				"type": "range",
+				"default": 160,
+				"min": 100,
+				"max": 255,
+				"step": 1,
+				"label": "DX"
+			},
+			"scale": {
+				"type": "range",
+				"default": 160,
+				"min": 10,
+				"max": 255,
+				"step": 1,
+				"label": "Scale"
+			},
+			"stroke_width": {
+				"type": "range",
+				"default": 8,
+				"min": 0.5,
+				"max": 40,
+				"step": 0.5,
+				"label": "Stroke Width"
+			},
+			"colorpanel": {
+				"type": "colorpanel",
+				"label": "Colors",
+				"value": {
+					"color_1": {
+						"label": "Inner Stroke",
+						"default": "#000000"
+					},
+					"color_2": {
+						"label": "Outer Stroke",
+						"default": "#000000"
+					},
+					"background": {
+						"label": "Backgroun 1",
+						"default": "#ffffff"
+					},
+					"background_2": {
+						"label": "Background 2",
+						"default": "#999999"
+					},
+					"background_3": {
+						"label": "Background 3",
+						"default": "#bbbbbb"
+					},
+					"background_4": {
+						"label": "Background 4",
+						"default": "#dddddd"
+					}	
+
+
+				}
+			}
+		},
+		"functions": {
+			"color_1": "return ( data.colorpanel.value.color_1.value );",
+			"color_2": "return ( data.colorpanel.value.color_2.value );",
+			"bg_fill": "return ( data.colorpanel.value.background.value );",
+			"bg_fill_2": "return ( data.colorpanel.value.background_2.value );",
+			"bg_fill_3": "return ( data.colorpanel.value.background_3.value );",
+			"bg_fill_4": "return ( data.colorpanel.value.background_4.value );",
+			"st": "return ( data.stroke_width.value );",
+			"hst": "return ( data.stroke_width.value / 2 );",
+			"kst": "return ( data.stroke_width.value / 4 );",
+			"scaled": "return (data.scale.value);",
+			"minst": "return ( data.stroke_width.value - data.dx.value);",
+			"plust": "return ( data.stroke_width.value + data.dx.value);",
+			"tott": "return ( 2 * data.dx.value );",
+			"v1": "return ( 0 );",
+			"v2": "return ( 200 - data.dx.value );",
+			"v3": "return ( data.dx.value );",
+			"v4": "return ( 50 + ( data.stroke_width.value / 2 ) );",
+			"v5": "return ( 75 - ( data.stroke_width.value / 2 ) );",
+			"v6": "return ( 75 + ( data.stroke_width.value / 2 ) );",
+			"v7": "return ( 125 - ( data.stroke_width.value / 2 ) );",
+			"v8": "return ( 125 + ( data.stroke_width.value / 2 ) );",
+			"v9": "return ( 150 - ( data.stroke_width.value / 2 ) );",
+			"v10": "return ( 200 - ( data.stroke_width.value / 2 ) );"
+		},
+	"presets": [
+		{
+			"label": "Nr. 1",
+			"parameters": {
+				"scale": 200,
+				"dx": 160,
+				"stroke_width" : 16,
+				"colorpanel": {
+					"color_1": "#ffffff",
+					"color_2" : "#000000",
+					"background": "#cc6666",
+					"background_2": "#ffffff",
+					"background_3": "#00cccc",
+					"background_4": "#00cccc"
+				}
+			}
+		},
+		{
+			"label": "Nr. 2",
+			"parameters": {
+				"scale": 80,
+				"dx": 164,
+				"stroke_width" : 30,
+				"colorpanel": {
+					"color_1": "#f3efc8",
+					"color_2" : "#766e27",
+					"background": "#c4b957",
+					"background_2": "#ffffff",
+					"background_3": "#ffffff",
+					"background_4": "#ffffff"
+				}
+			}
+		}
+	],
+	"template": "file"
+}

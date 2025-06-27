@@ -19,7 +19,14 @@ import './style.scss';
  */
 import Edit from './edit';
 import Save from './save';
+import registerDocSettings from './docsettings';
 import metadata from './block.json';
+
+
+
+// Maybe make the svg background a docsetting? Say: only two selects? SVG bg and the presets?
+// But can we add an inline style to page / post body?
+// import registerDocSettings from './docsettings';
 
 /**
  * Every block starts by registering a new block type definition.
@@ -50,3 +57,6 @@ registerBlockType( metadata.name, {
 	 */
 	save: Save,
 } );
+
+console.log( 'Good SVG Background Block loaded...' );
+registerDocSettings();

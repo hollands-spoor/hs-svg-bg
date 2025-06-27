@@ -1,51 +1,50 @@
 {
 	"name": "rings",
 	"label": "Rings",
-	"view": {
-		"parameters": {
-			"radius": {
-				"type": "range",
-				"default": 60,
-				"min": 8,
-				"max": 100,
-				"step": 0.5,
-				"label": "Radius"
-			},
-			"dx": {
-				"type": "range",
-				"default": 64,
-				"min": 8,
-				"max": 100,
-				"step": 0.5,
-				"label": "DX"
-			},
-			"stroke_width": {
-				"type": "range",
-				"default": 0.5,
-				"min": 0,
-				"max": 40,
-				"step": 0.5,
-				"label": "Stroke Width"
-			},
-			"colorpanel": {
-				"type": "colorpanel",
-				"label": "Colors",
-				"value": {
-					"stroke": {
-						"label": "Stroke",
-						"default": "#000000"
-					},
-					"background": {
-						"label": "Background",
-						"default": "#e0e0e0"
-					},
-					"color_1": {
-						"label": "Color 1",
-						"default": "#f0f0f0"
-					}
+	"parameters": {
+		"radius": {
+			"type": "range",
+			"default": 60,
+			"min": 8,
+			"max": 100,
+			"step": 0.5,
+			"label": "Radius"
+		},
+		"dx": {
+			"type": "range",
+			"default": 64,
+			"min": 8,
+			"max": 100,
+			"step": 0.5,
+			"label": "DX"
+		},
+		"stroke_width": {
+			"type": "range",
+			"default": 0.5,
+			"min": 0,
+			"max": 40,
+			"step": 0.5,
+			"label": "Stroke Width"
+		},
+		"colorpanel": {
+			"type": "colorpanel",
+			"label": "Colors",
+			"value": {
+				"stroke": {
+					"label": "Stroke",
+					"default": "#000000"
+				},
+				"background": {
+					"label": "Background",
+					"default": "#e0e0e0"
+				},
+				"color_1": {
+					"label": "Color 1",
+					"default": "#f0f0f0"
 				}
 			}
-		},
+		}
+	},
 		"functions": {
 			"halfr": "return Math.floor( ( data.radius.value / 2 ) - ( data.stroke_width.value / 2 ) );",
 			"halfx": "return Math.floor( data.dx.value / 2 );",
@@ -55,11 +54,11 @@
 			"svg_fill_2": "return ( data.colorpanel.value.color_1.value );",
 			"c1": "return ( data.colorpanel.value.color_1.value );"
 		}
-	},
+	,
 	"presets": [
 		{
 			"label": "Elegant",
-			"view": {
+			"parameters": {
 				"radius": 60,
 				"dx": 64,
 				"stroke_width": 0.5,
@@ -72,7 +71,7 @@
 		},
 		{
 			"label": "Horrible 70",
-			"view": {
+			"parameters": {
 				"radius": 90,
 				"dx": 100,
 				"stroke_width": 2,
@@ -85,7 +84,7 @@
 		},
 		{
 			"label": "Awfull 80",
-			"view": {
+			"parameters": {
 				"radius": 80,
 				"dx": 45,
 				"stroke_width": 0.5,
@@ -98,7 +97,7 @@
 		},
 		{
 			"label": "Store",
-			"view": {
+			"parameters": {
 				"radius": 42,
 				"dx": 36,
 				"stroke_width": 1,

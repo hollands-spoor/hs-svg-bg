@@ -1,0 +1,44 @@
+{
+	"name": "emoticon",
+	"label": "Emoticon",
+	"parameters": {
+		"svg_from_file": {
+			"type": "emojiselect",
+			"default": "",
+            "key": "emoji-select",
+			"label": "Emoticon SVG",
+			"options": "emojiOptions"
+		},
+        "repeat_xy": {
+            "type": "range",
+            "default": 10,
+            "min": 1,
+            "max": 10,
+            "step": 1,
+            "label": "Repeat X and Y",
+			"is_dependency": true,
+			"value": 10
+        },
+		"random_points": {
+			"type": "calculate",
+			"function" : "get_random_points",
+			"default": [],
+			"value":[],
+			"recalculate" : [ { "param" :"repeat_xy", "attribute" : "repeat_xy_attr" } ]
+		},
+		"repeat_xy_attr" : {
+			"value" : -1,
+			"default" : 10
+		}
+	},
+	"functions": {
+		"get_random_points": "var points=[], i, j; for( j=0; j<data.repeat_xy.value; j++) { for( i=0; i<data.repeat_xy.value; i++ ) { points.push( [ ( ( i*100 ) + Math.round(Math.random() * 20)), ( ( j*100 ) + Math.round(Math.random() * 20)) ] ); } }  return points;",
+        "svg_repeated": "var hsvg='', i, j, count=0; for( j=0; j<data.repeat_xy.value; j++) { for( i=0; i<data.repeat_xy.value; i++ ) { hx = data.random_points.value[count][0]; hy = data.random_points.value[count][1]; if ( (i+j) % 3 == 0 ) hsvg +=  '<use href=\"#emoji\" x=\"' + hx + '\" y=\"' + hy + '\" width=\"50\" height=\"50\" fill=\"#c00\" />'; count++; } } return hsvg;",
+		"svg_width" : "return 100 * data.repeat_xy.value;",
+		"svg_height" : "return 100 * data.repeat_xy.value;"
+
+	},
+	"presets": [
+	],
+	"template": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"{{svg_width}}\" height=\"{{svg_height}}\" viewBox=\"0 0 {{svg_width}} {{svg_height}}\" fill=\"none\" stroke=\"#f00\" stroke-width=\"1\" stroke-linecap=\"round\" stroke-linejoin=\"round\" class=\"svg_bg\"><defs>{{svg_from_file}}</defs>{{svg_repeated}}</svg>"
+}
