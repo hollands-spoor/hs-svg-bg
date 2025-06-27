@@ -1,17 +1,11 @@
 /* global svgObjects */
 
 /**
- * Retrieves the translation of text.
+ * Translations of text.
  *
  */
 import { __ } from '@wordpress/i18n';
 
-/**
- * React hook that is used to mark the block wrapper element.
- * It provides all the necessary props like the class name.
- *
- * @see https://developer.wordpress.org/block-editor/reference-guides/packages/packages-block-editor/#useblockprops
- */
 import {
 	InspectorControls,
 	useBlockProps,
@@ -22,50 +16,59 @@ import {
 	PanelBody,
 	TextControl,
 	RangeControl,
-	BaseControl,
-	ColorPicker,
 	SelectControl,
 } from '@wordpress/components';
 
-/**
- * Lets webpack process CSS, SASS or SCSS files referenced in JavaScript files.
- * Those files can contain any CSS code that gets applied to the editor.
- *
- * @see https://www.npmjs.com/package/@wordpress/scripts#using-css
- */
 import './editor.scss';
 
 /**
- * Edit an Save both use the rendering function
+ * Edit an Save both use the rendering function, hence a seperate file 
  */
-
 import { get_svg_object_by_name, mergeInAttributes, renderTemplate, mergeDeep, maybe_recalculate_parameters } from './templating';
 
 /**
- * The edit function describes the structure of your block in the context of the
- * editor. This represents what the editor will render when the block is used.
+ * Edit function for the SVG Background block.
+ * Handles SVG template selection, parameter management, preset merging,
+ * and renders the block UI in the editor.
  *
- * @see https://developer.wordpress.org/block-editor/reference-guides/block-api/block-edit-save/#edit
- *
- * @return {Element} Element to render.
+ * @param {Object}   props
+ * @param {Object}   props.attributes - Block attributes from Gutenberg.
+ * @param {Function} props.setAttributes - Function to update block attributes.
+ * @returns {Element} The block editor element.
  */
-
 
 export default function Edit( { attributes, setAttributes } ) {
 	let blockProps = useBlockProps();
 
+	
+    /**
+     * The name of the selected SVG template.
+     * If not set, defaults to the first template in svgObjects.
+     */
 	let svgTemplateName = attributes.svgTemplateName;
-
 	if( svgTemplateName=== undefined || svgTemplateName === '' ) {
 		svgTemplateName = svgObjects[0].name;
 		setAttributes( {
 			svgTemplateName: svgTemplateName,
 		} );
 	}
-
+	
+    /**
+     * Extracts parameter values from an SVG object, handling nested objects and arrays.
+     * Used to initialize or reset parameters when switching templates or presets.
+     *
+     * @param {Object} SVGObject - The SVG object containing parameter definitions.
+     * @returns {Object} New parameters object with values or defaults.
+     */
 	const getParamsFromSVGObject = (SVGObject) => {
+
+		/**
+         * Recursively processes a parameter value, handling arrays and nested objects.
+         * @param {*} value - The value or default for a parameter.
+         * @returns {*} The processed value.
+         */
 		const processValue = (value) => {
-		// js returns also 'object' when type is really an array. So first check if type of value is array
+		 // JS returns 'object' for arrays, so check Array.isArray first
 			if (value !== null && Array.isArray(value)) {
 				return value;
 			}
@@ -79,8 +82,11 @@ export default function Edit( { attributes, setAttributes } ) {
 		  }
 		  return value;
 		};
-			  
+			
+		// Ensure any calculated parameters are up to date
 		maybe_recalculate_parameters( SVGObject );
+
+		// Build a new parameters object with current values or defaults
 		const newParameters = Object.fromEntries(
 		  Object.entries(SVGObject.parameters).map(([key, value]) => [
 			key,
@@ -97,18 +103,20 @@ export default function Edit( { attributes, setAttributes } ) {
 	// DONE: whene svgTemplate is not changed, its name is not saved in the attributes. Not breakingm but not nice <-- Yes, this is a problem.
 	// TODO: Remove stroke_width param from diamonds template
 	// DONE: svgObject.view.parameters => svgObject.parameters <- bit of rework needed here
+	  // --- Get the SVG object for the selected template ---
 	let myObject = get_svg_object_by_name( svgTemplateName );
 
 	// if only editable properties are stored in attributes, then myview should be a merge of the view in svgObjects and the attributes
 
+	// --- Merge parameters from attributes into the SVG object parameters ---
 	let myParameters = myObject.parameters;
 
 
-	// Check this view???
 	myParameters = mergeInAttributes( myParameters, attributes.parameters );
 
 	// Before going on, check if a preset is set, if so, merge the preset also into myview
 	// Nonono!! Now preset is loaded on every render. Do this only if selected preset changes
+	// --- Preset Handling ---
 	const has_presets = ( typeof myObject.presets !== 'undefined' );
 	let myPreset = typeof( attributes.preset ) !== 'undefined' ? attributes.preset : 0;
 	let myPresets = typeof( myObject.presets ) !== 'undefined' ? myObject.presets : [];
@@ -122,6 +130,7 @@ export default function Edit( { attributes, setAttributes } ) {
 	} ) );
 
 
+	// --- Initialize parameters if not set ---
 	if( attributes.parameters === undefined || attributes.parameters.length == 0 ) {
 		let newMyParameters = getParamsFromSVGObject( myObject ); // Create a new object
 		// is creating a new object neccesary here?  otherwise just use setAttributs ( { myview : myview.parameters } )	
@@ -138,13 +147,14 @@ export default function Edit( { attributes, setAttributes } ) {
 	// So: iterate througe the parameters and if type = calculate, we calculate then here
 	// i did this in templating function, for save function needs it as well. Or does it?
 
+	// --- Render the SVG template as a data URI for use as a background image ---
 	const svgResult = renderTemplate( mytemplate, myObject );
-
 	const svgDataUri = `data:image/svg+xml,${ encodeURIComponent(
 		svgResult
 	) }`;
 
 
+	// --- Set the block background to the rendered SVG ---
 	blockProps = useBlockProps( {
 		style: { backgroundImage: `url("${ svgDataUri }")`,  backgroundPosition: '-10% -10%'},
 	} );
